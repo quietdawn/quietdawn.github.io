@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/dragon.png">
+  <link rel="icon" href="/img/dragon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="p3cd0wn">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一届OpenHarmony专题赛牢了两天，收获良多。分享一下这次解出的题目。 ”任由世界下坠暗夜裹挟，请你聆听一座山的哽咽。在平缓心绪后依旧选择向命运吟唱高歌，在无论是晴是雨的明天里，我还是我，青山依旧巍峨。“ Reverseeasyre反编译abc看到跟flag有关的逻辑 123456789101112131415161718192021222324public Object #~@0&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一届OpenHarmony专题赛">
+<meta property="og:url" content="http://example.com/2025/06/09/%E7%AC%AC%E4%B8%80%E5%B1%8AOpenHarmony%E4%B8%93%E9%A2%98%E8%B5%9B/index.html">
+<meta property="og:site_name" content="p3cd0wn&#39;s personal blog">
+<meta property="og:description" content="第一届OpenHarmony专题赛牢了两天，收获良多。分享一下这次解出的题目。 ”任由世界下坠暗夜裹挟，请你聆听一座山的哽咽。在平缓心绪后依旧选择向命运吟唱高歌，在无论是晴是雨的明天里，我还是我，青山依旧巍峨。“ Reverseeasyre反编译abc看到跟flag有关的逻辑 123456789101112131415161718192021222324public Object #~@0&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171327504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171650397.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171927880.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172000463.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172043113.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172150562.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172505562.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172528829.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172607063.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173111315.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173122702.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173238302.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173311579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173341131.png">
+<meta property="article:published_time" content="2025-06-09T13:03:33.000Z">
+<meta property="article:modified_time" content="2025-06-09T13:13:08.534Z">
+<meta property="article:author" content="p3cd0wn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171327504.png">
+  
+  
+  
+  <title>第一届OpenHarmony专题赛 - p3cd0wn&#39;s personal blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4gMWdFLhDv2bevUzdTcBg0tg-gzGzoHsz","app_key":"eZrG2IwhtuMGp4PM0HIyWHJz","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>p3cd0wn&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第一届OpenHarmony专题赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-09 21:03" pubdate>
+          2025年6月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">第一届OpenHarmony专题赛</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年6月9日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第一届OpenHarmony专题赛"><a href="#第一届OpenHarmony专题赛" class="headerlink" title="第一届OpenHarmony专题赛"></a>第一届OpenHarmony专题赛</h1><p>牢了两天，收获良多。分享一下这次解出的题目。</p>
+<p><strong>”任由世界下坠暗夜裹挟，请你聆听一座山的哽咽。在平缓心绪后依旧选择向命运吟唱高歌，在无论是晴是雨的明天里，我还是我，青山依旧巍峨。</strong>“</p>
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><h3 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h3><p>反编译abc看到跟flag有关的逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Object #~@<span class="hljs-number">0</span>&gt;@<span class="hljs-number">1</span>*^<span class="hljs-number">2</span>*#(Object functionObject, Object newTarget, Flag <span class="hljs-built_in">this</span>) &#123;<br>        ldlexvar = _lexenv_0_1_;<br>        ldlexvar.count = tonumer(ldlexvar.count) + <span class="hljs-number">1</span>;<br>        router = <span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">default</span> as router &#125; from <span class="hljs-string">&quot;@ohos:router&quot;</span>;<br>        r14 = router.getParams().hint1;<br>        <span class="hljs-keyword">if</span> ((<span class="hljs-number">1000000</span> == _lexenv_0_1_.count ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) == <span class="hljs-number">0</span>) &#123;<br>            promptAction = <span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">default</span> as promptAction &#125; from <span class="hljs-string">&quot;@ohos:promptAction&quot;</span>;<br>            obj = promptAction.showToast;<br>            obj2 = createobjectwithbuffer([<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;duration&quot;</span>, <span class="hljs-number">2000</span>]);<br>            obj2.message = _lexenv_0_1_.count + <span class="hljs-string">&quot;&quot;</span>;<br>            obj(obj2);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br><br>        &#125;<br><br>        ldlexvar2 = _lexenv_0_1_;<br>        getH2 = r14 + ldlexvar2.getH2(_lexenv_0_1_.magic);<br>        promptAction2 = <span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">default</span> as promptAction &#125; from <span class="hljs-string">&quot;@ohos:promptAction&quot;</span>;<br>        obj3 = promptAction2.showToast;<br>        obj4 = createobjectwithbuffer([<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;duration&quot;</span>, <span class="hljs-number">2000</span>]);<br>        obj4.message = <span class="hljs-string">&quot;The flag is flag&#123;&quot;</span> + getH2 + <span class="hljs-string">&quot;&#125;&quot;</span>;<br>        obj3(obj4);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>flag由两部分构成，一部分是router.getParams().hint1,另一部分是ldlexvar2.getH2(lexenv_0_1.magic)</p>
+<p>第二部分就是标准的base64，在类coder里，但是decodeToString里面有个对字符串的reverse反转操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js">public <span class="hljs-title class_">Object</span> #*#<span class="hljs-title function_">decodeToString</span>(<span class="hljs-params"><span class="hljs-built_in">Object</span> functionObject, <span class="hljs-built_in">Object</span> newTarget, Coder <span class="hljs-variable language_">this</span>, <span class="hljs-built_in">Object</span> arg0</span>) &#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-title function_">_lexenv_0_6_</span>(<span class="hljs-title function_">_lexenv_0_7_</span>(arg0));<br>   &#125;<br>   public <span class="hljs-title class_">Object</span> #*#<span class="hljs-title function_">convertToString</span>(<span class="hljs-params"><span class="hljs-built_in">Object</span> functionObject, <span class="hljs-built_in">Object</span> newTarget, Coder <span class="hljs-variable language_">this</span>, <span class="hljs-built_in">Object</span> arg0</span>) &#123;<br>       obj = arg0;<br>       <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isfalse</span>(<span class="hljs-title function_">instanceof</span>(obj, <span class="hljs-title class_">ArrayBuffer</span>)) == <span class="hljs-literal">null</span>) &#123;<br>           obj = <span class="hljs-title function_">_lexenv_0_0_</span>(<span class="hljs-title class_">Uint8Array</span>(obj));<br>       &#125;<br>       <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isfalse</span>(<span class="hljs-title function_">instanceof</span>(obj, <span class="hljs-title class_">Uint8Array</span>)) == <span class="hljs-literal">null</span>) &#123;<br>           obj = <span class="hljs-title function_">_lexenv_0_0_</span>(obj);<br>       &#125;<br>       <span class="hljs-keyword">if</span> ((<span class="hljs-string">&quot;string&quot;</span> == <span class="hljs-title function_">typeof</span>(obj) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) == <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Unsupported type&quot;</span>));<br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>       &#125;<br>       obj2 = <span class="hljs-string">&quot;&quot;</span>;<br>       <span class="hljs-keyword">for</span> (i = obj.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; (i &gt;= <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) != <span class="hljs-number">0</span>; i = <span class="hljs-title function_">tonumer</span>(i) - <span class="hljs-number">1</span>) &#123;<br>           obj2 = (obj2 == <span class="hljs-literal">true</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) + obj[i];<br>       &#125;<br>       <span class="hljs-keyword">return</span> obj2;<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>密文找到是ODg0ZjMxNWYxMDJiMGI4ZGI1NjgwNWYzNGJkYzgxY2ZlYzI，赛博厨子一下得到2cefc18cdb43f50865bd8b0b201f513f488</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171327504.png" srcset="/img/loading.gif" lazyload alt="image-20250609171327504"></p>
+<p>再看对于hint1的处理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js">public <span class="hljs-title class_">Object</span> #~@<span class="hljs-number">1</span>&gt;@<span class="hljs-number">2</span>*^<span class="hljs-number">2</span>*#(<span class="hljs-title class_">Object</span> functionObject, <span class="hljs-title class_">Object</span> newTarget, <span class="hljs-title class_">Index</span> <span class="hljs-variable language_">this</span>) &#123;<br>        i = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">for</span> (i2 = <span class="hljs-number">0</span>; (i2 &lt; _lexenv_0_1_.<span class="hljs-property">hint1</span>.<span class="hljs-property">length</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) != <span class="hljs-number">0</span>; i2 = <span class="hljs-title function_">tonumer</span>(i2) + <span class="hljs-number">1</span>) &#123;<br>            obj = <span class="hljs-title class_">String</span>.<span class="hljs-property">fromCharCode</span>;<br>            obj2 = _lexenv_0_1_.<span class="hljs-property">hint1</span>;<br>            i += <span class="hljs-title function_">obj</span>(obj2.<span class="hljs-title function_">charCodeAt</span>(i2) + _lexenv_0_1_.<span class="hljs-property">hint1</span>.<span class="hljs-property">length</span>);<br>        &#125;<br>        ldlexvar = _lexenv_0_1_;<br>        reverseStr = ldlexvar.<span class="hljs-title function_">reverseStr</span>(i);<br>        i3 = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">for</span> (i4 = <span class="hljs-number">0</span>; (i4 &lt; _lexenv_0_1_.<span class="hljs-property">hint1</span>.<span class="hljs-property">length</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) != <span class="hljs-number">0</span>; i4 = <span class="hljs-title function_">tonumer</span>(i4) + <span class="hljs-number">1</span>) &#123;<br>            i3 += <span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(reverseStr.<span class="hljs-title function_">charCodeAt</span>(i4) - i4);<br>        &#125;<br>        ldlexvar2 = _lexenv_0_1_;<br>        reverseStr2 = ldlexvar2.<span class="hljs-title function_">reverseStr</span>(i3);<br>        obj3 = <span class="hljs-title function_">createobjectwithbuffer</span>([<span class="hljs-string">&quot;hint1&quot;</span>, <span class="hljs-number">0</span>]);<br>        obj3.<span class="hljs-property">hint1</span> = reverseStr2;<br>        router = <span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> router &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@ohos:router&quot;</span>;<br>        obj4 = router.<span class="hljs-property">pushUrl</span>;<br>        obj5 = <span class="hljs-title function_">createobjectwithbuffer</span>([<span class="hljs-string">&quot;url&quot;</span>, <span class="hljs-string">&quot;pages/Flag&quot;</span>, <span class="hljs-string">&quot;params&quot;</span>, <span class="hljs-number">0</span>]);<br>        obj5.<span class="hljs-property">params</span> = obj3;<br>        callthisN = <span class="hljs-title function_">obj4</span>(obj5);<br>        then = callthisN.<span class="hljs-title function_">then</span>();<br>        then.<span class="hljs-title function_">catch</span>(#~@<span class="hljs-number">1</span>&gt;@<span class="hljs-number">2</span>*^<span class="hljs-number">2</span>**#);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>对字符串先反转再加i再反转再减长度，逆向脚本如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">reverseStr</span><span class="hljs-params">(<span class="hljs-type">char</span> *str)</span> <br>&#123;<br>    <span class="hljs-type">int</span> len = <span class="hljs-built_in">strlen</span>(str);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len / <span class="hljs-number">2</span>; i++) <br>        &#123;<br>        <span class="hljs-type">char</span> tmp = str[i];<br>        str[i] = str[len - i - <span class="hljs-number">1</span>];<br>        str[len - i - <span class="hljs-number">1</span>] = tmp;<br>    &#125;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> <br>&#123;<br>    <span class="hljs-type">char</span> hint1[] = <span class="hljs-string">&quot;opfj^_mgekc]iWccXbf&quot;</span>;<br>    <span class="hljs-type">int</span> len = <span class="hljs-built_in">strlen</span>(hint1);<br>    <span class="hljs-type">char</span> step1[<span class="hljs-number">100</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>    <span class="hljs-type">char</span> step2[<span class="hljs-number">100</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) <br>    &#123;<br>        step1[i] = hint1[i] + len;<br>    &#125;<br>    step1[len] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>    reverseStr(step1);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) <br>    &#123;<br>        step2[i] = step1[i] - i;<br>    &#125;<br>    step2[len] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>    reverseStr(step2);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, step2);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>得到第一部分的结果：princetonuniversity</p>
+<p>两部分合起来：flag{princetonuniversity2cefc18cdb43f50865bd8b0b201f513f488}</p>
+<h3 id="oh-baby"><a href="#oh-baby" class="headerlink" title="oh~baby"></a>oh~baby</h3><p>鸿蒙内核题，qemu启动脚本多了个空格，删了然后正常跑起来，挂载共享文件夹方便拷贝文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs bash">OHOS_IMG=<span class="hljs-string">&quot;images&quot;</span><br>qemu-system-x86_64 \<br>-machine pc \<br>-smp 6 \<br>-m 4096M \<br>-boot c \<br>-nographic \<br>-vga none \<br>-virtfs <span class="hljs-built_in">local</span>,path=/mnt/shared,mount_tag=host0,security_model=passthrough,<span class="hljs-built_in">id</span>=host0 \<br>-device virtio-vga-gl,xres=360,yres=720 \<br>-display sdl,gl=on \<br>-rtc base=utc,clock=host \<br>-device es1370 \<br>-initrd <span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/ramdisk.img \<br>-kernel <span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/bzImage \<br>-usb \<br>-device usb-mouse \<br>-device usb-ehci,<span class="hljs-built_in">id</span>=ehci \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/updater.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=0 \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/system.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=1 \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/vendor.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=2 \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/sys_prod.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=3 \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/chip_prod.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=4 \<br>-drive file=<span class="hljs-variable">$&#123;OHOS_IMG&#125;</span>/userdata.img,<span class="hljs-keyword">if</span>=virtio,media=disk,format=raw,index=5 \<br>-snapshot \<br>-append <span class="hljs-string">&quot; \</span><br><span class="hljs-string">ip=dhcp \</span><br><span class="hljs-string">loglevel=7 \</span><br><span class="hljs-string">console=ttyS0,115200 \</span><br><span class="hljs-string">init=init root=/dev/ram0 rw \</span><br><span class="hljs-string">ohos.boot.hardware=virt \</span><br><span class="hljs-string">default_boot_device=10007000.virtio_mmio \</span><br><span class="hljs-string">ohos.boot.sn=01234567890 \</span><br><span class="hljs-string">ohos.required_mount.system=/dev/block/vdb@/usr@ext4@ro,barrier=1@wait,required \</span><br><span class="hljs-string">ohos.required_mount.vendor=/dev/block/vdc@/vendor@ext4@ro,barrier=1@wait,required&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>给了提示：hcs客户端在&#x2F;vendor&#x2F;下</p>
+<p>那么去翻&#x2F;vendor下的目录，在&#x2F;vendor&#x2F;bin找到一个chall</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171650397.png" srcset="/img/loading.gif" lazyload alt="image-20250609171650397"></p>
+<p>chall是本题的客户端主程序，命令行传参然后会去跟chall_driver驱动交互来进行aes加密，输入长度必须是16的倍数</p>
+<p>使用命令cp &#x2F;vendor&#x2F;bin&#x2F;chall  &#x2F;mnt&#x2F;shared将chall拉下来进行分析</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br> *(_OWORD *)dest = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> ( argc &gt;= <span class="hljs-number">2</span> )<br>  &#123;<br>    <span class="hljs-built_in">strncpy</span>(dest, argv[<span class="hljs-number">1</span>], <span class="hljs-number">0xFF</span>u);<br>    HIBYTE(v38) = <span class="hljs-number">0</span>;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Using input from command line argument: %s&quot;</span>, dest);<br>    <span class="hljs-keyword">if</span> ( dest[<span class="hljs-number">0</span>] )<br>      <span class="hljs-keyword">goto</span> LABEL_3;<br>LABEL_8:<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Input cannot be empty.&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br>  HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Please enter your guess for the flag:&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( !fgets(dest, <span class="hljs-number">256</span>, <span class="hljs-built_in">stdin</span>) )<br>  &#123;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Failed to read input.&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br>  dest[<span class="hljs-built_in">strcspn</span>(dest, <span class="hljs-string">&quot;\n&quot;</span>)] = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> ( !dest[<span class="hljs-number">0</span>] )<br>    <span class="hljs-keyword">goto</span> LABEL_8;<br>LABEL_3:<br>  v3 = HdfIoServiceBind(<span class="hljs-string">&quot;chall_service&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( !v3 )<br>  &#123;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;fail to get service %s&quot;</span>, <span class="hljs-string">&quot;chall_service&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br>  v4 = v3;<br>  <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)HdfDeviceRegisterEventListener(v3, &amp;main_listener) )<br>  &#123;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;fail to register event listener&quot;</span>);<br>    HdfIoServiceRecycle(v4);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br>  dword_4B80 = <span class="hljs-number">0</span>;<br>  <span class="hljs-built_in">memset</span>(&amp;v20, <span class="hljs-number">0</span>, <span class="hljs-number">0x200</span>u);<br>  <span class="hljs-built_in">memset</span>(::dest, <span class="hljs-number">0</span>, <span class="hljs-number">0x200</span>u);<br>  v6 = HdfSbufObtainDefaultSize();<br>  <span class="hljs-keyword">if</span> ( !v6 )<br>  &#123;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;SendAndGetEncryptedReply: fail to obtain sbuf dataSbuf&quot;</span>);<br>    v11 = <span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">goto</span> LABEL_29;<br>  &#125;<br>  v7 = v6;<br>  v8 = HdfSbufObtainDefaultSize();<br>  <span class="hljs-keyword">if</span> ( !v8 )<br>  &#123;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;SendAndGetEncryptedReply: fail to obtain sbuf replySbuf&quot;</span>);<br>    HdfSbufRecycle(v7);<br>    v11 = <span class="hljs-number">-201</span>;<br>    <span class="hljs-keyword">goto</span> LABEL_29;<br>  &#125;<br>  v9 = v8;<br>  <span class="hljs-keyword">if</span> ( !(<span class="hljs-type">unsigned</span> __int8)HdfSbufWriteString(v7, dest) )<br>  &#123;<br>    HiLogPrint(<br>      <span class="hljs-number">218113296</span>,<br>      <span class="hljs-number">6</span>,<br>      <span class="hljs-number">218113296</span>,<br>      <span class="hljs-string">&quot;chall_test&quot;</span>,<br>      <span class="hljs-string">&quot;SendAndGetEncryptedReply: fail to write input string to dataSbuf&quot;</span>);<br>    <span class="hljs-keyword">goto</span> LABEL_22;<br>  &#125;<br>  HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Sending input to driver: \&quot;%&#123;public&#125;s\&quot;&quot;</span>, dest);<br>  v10 = (**(__int64 (__fastcall ***)(__int64, __int64, __int64, __int64))(v4 + <span class="hljs-number">16</span>))(v4, <span class="hljs-number">123</span>, v7, v9);<br>  <span class="hljs-keyword">if</span> ( !v10 )<br>  &#123;<br>    String = HdfSbufReadString(v9);<br>    <span class="hljs-keyword">if</span> ( !String )<br>    &#123;<br>      HiLogPrint(<br>        <span class="hljs-number">218113296</span>,<br>        <span class="hljs-number">6</span>,<br>        <span class="hljs-number">218113296</span>,<br>        <span class="hljs-string">&quot;chall_test&quot;</span>,<br>        <span class="hljs-string">&quot;SendAndGetEncryptedReply: fail to read reply string from replySbuf&quot;</span>);<br>      <span class="hljs-built_in">strncpy</span>((<span class="hljs-type">char</span> *)&amp;v20, <span class="hljs-string">&quot;ERROR: Failed to read reply string&quot;</span>, <span class="hljs-number">0x1FF</span>u);<br>      v22 = <span class="hljs-number">0</span>;<br>      v11 = <span class="hljs-number">-4</span>;<br>      <span class="hljs-keyword">goto</span> LABEL_28;<br>    &#125;<br>    v16 = (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)String;<br>    v11 = <span class="hljs-number">0</span>;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Got direct reply string from service: \&quot;%&#123;public&#125;s\&quot;&quot;</span>, String);<br>    <span class="hljs-built_in">strncpy</span>((<span class="hljs-type">char</span> *)&amp;v20, v16, <span class="hljs-number">0x1FF</span>u);<br>    v22 = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> ( v20 ^ <span class="hljs-number">0x4F525245</span> | v21 ^ <span class="hljs-number">0x3A52</span> )<br>      <span class="hljs-keyword">goto</span> LABEL_28;<br>    HiLogPrint(<br>      <span class="hljs-number">218113296</span>,<br>      <span class="hljs-number">6</span>,<br>      <span class="hljs-number">218113296</span>,<br>      <span class="hljs-string">&quot;chall_test&quot;</span>,<br>      <span class="hljs-string">&quot;SendAndGetEncryptedReply: Received error message from driver: %s&quot;</span>,<br>      (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)&amp;v20);<br>LABEL_22:<br>    v11 = <span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">goto</span> LABEL_28;<br>  &#125;<br>  v11 = v10;<br>  HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;SendAndGetEncryptedReply: Dispatch failed, ret = %d&quot;</span>, v10);<br>  v12 = (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)HdfSbufReadString(v9);<br>  <span class="hljs-keyword">if</span> ( v12 )<br>  &#123;<br>    v13 = v12;<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;SendAndGetEncryptedReply: Error from driver dispatch: %s&quot;</span>, v12);<br>    v14 = v13;<br>  &#125;<br>  <span class="hljs-keyword">else</span><br>  &#123;<br>    v14 = <span class="hljs-string">&quot;ERROR: Dispatch failed, no specific message&quot;</span>;<br>  &#125;<br>  <span class="hljs-built_in">strncpy</span>((<span class="hljs-type">char</span> *)&amp;v20, v14, <span class="hljs-number">0x1FF</span>u);<br>  v22 = <span class="hljs-number">0</span>;<br>LABEL_28:<br>  HdfSbufRecycle(v7);<br>  HdfSbufRecycle(v9);<br>  <span class="hljs-keyword">if</span> ( !v11 )<br>  &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Driver direct reply (Ciphertext or Status): %s\n&quot;</span>, (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)&amp;v20);<br>    v17 = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> ( !(v20 ^ <span class="hljs-string">&#x27;ORRE&#x27;</span> | v21 ^ <span class="hljs-number">0x3A52</span>) )<br>      HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Operation failed. Driver returned an error in direct reply.&quot;</span>);<br>    <span class="hljs-keyword">goto</span> LABEL_31;<br>  &#125;<br>LABEL_29:<br>  v17 = <span class="hljs-number">0</span>;<br>  HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Communication Dispatch Error with HDF service. Code: %d&quot;</span>, v11);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Communication Dispatch Error with HDF service. Check logs.&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( (_BYTE)v20 )<br>  &#123;<br>    v17 = <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Details: %s\n&quot;</span>, (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)&amp;v20);<br>  &#125;<br>LABEL_31:<br>  v18 = <span class="hljs-number">0</span>;<br>  HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Waiting for event from driver...&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( dword_4B80 )<br>    <span class="hljs-keyword">goto</span> LABEL_36;<br>  <span class="hljs-keyword">do</span><br>  &#123;<br>    sleep(<span class="hljs-number">1u</span>);<br>    <span class="hljs-keyword">if</span> ( dword_4B80 )<br>      <span class="hljs-keyword">break</span>;<br>  &#125;<br>  <span class="hljs-keyword">while</span> ( v18++ &lt; <span class="hljs-number">4</span> );<br>  <span class="hljs-keyword">if</span> ( dword_4B80 )<br>LABEL_36:<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">4</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Event received from driver: %s&quot;</span>, ::dest);<br>  <span class="hljs-keyword">else</span><br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">5</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;Timed out waiting for event from driver.&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)HdfDeviceUnregisterEventListener(v4, &amp;main_listener) )<br>    HiLogPrint(<span class="hljs-number">218113296</span>, <span class="hljs-number">6</span>, <span class="hljs-number">218113296</span>, <span class="hljs-string">&quot;chall_test&quot;</span>, <span class="hljs-string">&quot;fail to unregister listener&quot;</span>);<br>  HdfIoServiceRecycle(v4);<br>  result = <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">if</span> ( v17 )<br>    <span class="hljs-keyword">return</span> (v20 ^ <span class="hljs-number">0x4F525245</span> | v21 ^ <span class="hljs-number">0x3A52</span>) == <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>v3 &#x3D; HdfIoServiceBind(“chall_service”);绑定了chall_service这个驱动，但是具体实现逻辑没有体现</p>
+<p>尝试利用驱动名find找到了一些信息，比如</p>
+<p>&#x2F;sys&#x2F;class&#x2F;hdf&#x2F;chall_service</p>
+<p>&#x2F;sys&#x2F;devices&#x2F;virtual&#x2F;hdf&#x2F;chall_service</p>
+<p>但均没有驱动的真正逻辑</p>
+<p>关注到imgs文件夹里的bzImage，并没有像其他img一样可以解包出系统的文件夹，binwalk -e提取到一个elf 52C4</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609171927880.png" srcset="/img/loading.gif" lazyload alt="image-20250609171927880"></p>
+<p>ida分析该elf</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172000463.png" srcset="/img/loading.gif" lazyload alt="image-20250609172000463" style="zoom:67%;" />
+
+<p>搜驱动名发现有Congratulate一系列的描述，定位到比较函数的位置</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs smali">if ( !strcmp(v46, a8be07936adbb87) )<br>    &#123;<br>      memset(v102, 0, sizeof(v102));<br>      v101 = 0<span class="hljs-class">LL;</span><br>      sub_FFFFFFFF81B559E0(byte_FFFFFFFF8281AAE0, (__int64)&amp;v101, byte_100, a5, a6, a7, a8, v47, v48, a11, a12);// congratulate<br>     <span class="hljs-built_in"> if </span>( v67 )<br>        sub_FFFFFFFF810F19B0((__int64)&amp;v101, a5, a6, a7, a8, v65, v66, a11, a12);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>找到密文是8BE07936ADBB8728D93BB1E0AB715353</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172043113.png" srcset="/img/loading.gif" lazyload alt="image-20250609172043113"></p>
+<p>继续分析找到aes的加密逻辑</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> __fastcall <span class="hljs-title function_">sub_FFFFFFFF81BEAA50</span><span class="hljs-params">(</span><br><span class="hljs-params">  v10 = a1 + <span class="hljs-number">16</span>;</span><br><span class="hljs-params">  v29 = __readgsqword(<span class="hljs-number">0x28</span>u);</span><br><span class="hljs-params">  v26[<span class="hljs-number">0</span>] = <span class="hljs-number">0LL</span>;</span><br><span class="hljs-params">  v26[<span class="hljs-number">1</span>] = <span class="hljs-number">0LL</span>;</span><br><span class="hljs-params">  Key_Schedule(v26, v27);</span><br><span class="hljs-params">  v11 = v27;</span><br><span class="hljs-params">  <span class="hljs-keyword">do</span></span><br><span class="hljs-params">  &#123;</span><br><span class="hljs-params">    sub_FFFFFFFF81BEA580(a1);</span><br><span class="hljs-params">    sub_FFFFFFFF81BEA580(v11);</span><br><span class="hljs-params">    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0LL</span>; i != <span class="hljs-number">16</span>; ++i )</span><br><span class="hljs-params">      a1[i] ^= v11[i];</span><br><span class="hljs-params">    v13 = a1;</span><br><span class="hljs-params">    v14 = a1;</span><br><span class="hljs-params">    <span class="hljs-keyword">do</span></span><br><span class="hljs-params">    &#123;</span><br><span class="hljs-params">      v15 = *v14++;</span><br><span class="hljs-params">      *(v14 - <span class="hljs-number">1</span>) = Sbox[v15];</span><br><span class="hljs-params">    &#125;</span><br><span class="hljs-params">    <span class="hljs-keyword">while</span> ( v10 != v14 );</span><br><span class="hljs-params">    v11 += <span class="hljs-number">16</span>;</span><br><span class="hljs-params">    MixColumns(a1);</span><br><span class="hljs-params">  &#125;</span><br><span class="hljs-params">  <span class="hljs-keyword">while</span> ( v28 != v11 );</span><br><span class="hljs-params">  sub_FFFFFFFF81BEA580(a1);</span><br><span class="hljs-params">  sub_FFFFFFFF81BEA580(v28);</span><br><span class="hljs-params">  <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0LL</span>; j != <span class="hljs-number">16</span>; ++j )</span><br><span class="hljs-params">    a1[j] ^= v28[j];</span><br><span class="hljs-params">  <span class="hljs-keyword">do</span></span><br><span class="hljs-params">  &#123;</span><br><span class="hljs-params">    v22 = *v13++;</span><br><span class="hljs-params">    *(v13 - <span class="hljs-number">1</span>) = Sbox[v22];</span><br><span class="hljs-params">  &#125;</span><br><span class="hljs-params">  <span class="hljs-keyword">while</span> ( v10 != v13 );</span><br><span class="hljs-params">  <span class="hljs-keyword">for</span> ( k = <span class="hljs-number">0LL</span>; k != <span class="hljs-number">16</span>; ++k )</span><br><span class="hljs-params">    a1[k] ^= v28[k + <span class="hljs-number">16</span>];</span><br><span class="hljs-params">  <span class="hljs-keyword">for</span> ( m = <span class="hljs-number">0LL</span>; m != <span class="hljs-number">16</span>; ++m )</span><br><span class="hljs-params">  &#123;</span><br><span class="hljs-params">    v25 = a1[m];</span><br><span class="hljs-params">    *(_BYTE *)(a2 + m) = v25;</span><br><span class="hljs-params">  &#125;</span><br><span class="hljs-params">  <span class="hljs-keyword">if</span> ( __readgsqword(<span class="hljs-number">0x28</span>u) != v29 )</span><br><span class="hljs-params">    sub_FFFFFFFF81EE2180(v28, v27, v25, v16, v17, v18, a3, a4, a5, a6, v19, v20, a9, a10);</span><br><span class="hljs-params">  JUMPOUT(<span class="hljs-number">0xFFFFFFFF81EEF360</span>LL);</span><br><span class="hljs-params">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>​	其中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">v26[<span class="hljs-number">0</span>] = <span class="hljs-number">0LL</span>;<br>v26[<span class="hljs-number">1</span>] = <span class="hljs-number">0LL</span>;<br>Key_Schedule(v26, v27);<br></code></pre></td></tr></table></figure>
+
+<p>其中把密钥v26赋值为0，然后通过字符串确定AES-128-ECB模式，尝试全0密钥解密，得到</p>
+<p><img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172150562.png" srcset="/img/loading.gif" lazyload alt="image-20250609172150562">故flag是flag{Wh1T3BoxA4s1noho}</p>
+<h2 id="Hardware"><a href="#Hardware" class="headerlink" title="Hardware"></a>Hardware</h2><h3 id="easy-designer"><a href="#easy-designer" class="headerlink" title="easy_designer"></a>easy_designer</h3><p>第一次在ctf里感受到了专业对口（）</p>
+<p>题目是电路板，找到使灯亮的输入，开关从（SW01-SW48），如输入01011000，flag为flag{01011000}</p>
+<p>使用kicad看整个pcb板子的走线</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172505562.png" srcset="/img/loading.gif" lazyload alt="image-20250609172505562" style="zoom:50%;" />
+
+<p>&#96;键可以高亮走线，看一下从LED引出的线</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172528829.png" srcset="/img/loading.gif" lazyload alt="image-20250609172528829" style="zoom:50%;" />
+
+<p>尝试分析整体的走线，发现所有开关都被调用，那么我们来看pcb板子上的这两种芯片类型</p>
+<p>第一种是74LS08 ，这是一款常见的 <strong>四路与非门（Quad 2-input AND gate）</strong> 芯片，内部有 4 个独立的 <strong>2 输入 AND 门</strong>。</p>
+<p>原理图如下：</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609172607063.png" srcset="/img/loading.gif" lazyload alt="image-20250609172607063" style="zoom:50%;" />
+
+<p>封装：14 脚双列直插（DIP-14）</p>
+<table>
+<thead>
+<tr>
+<th>引脚号</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>A1</td>
+<td>第1个门输入 A</td>
+</tr>
+<tr>
+<td>2</td>
+<td>B1</td>
+<td>第1个门输入 B</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Y1</td>
+<td>第1个门输出 Y</td>
+</tr>
+<tr>
+<td>4</td>
+<td>A2</td>
+<td>第2个门输入 A</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B2</td>
+<td>第2个门输入 B</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Y2</td>
+<td>第2个门输出 Y</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Y3</td>
+<td>第3个门输出 Y</td>
+</tr>
+<tr>
+<td>9</td>
+<td>A3</td>
+<td>第3个门输入 A</td>
+</tr>
+<tr>
+<td>10</td>
+<td>B3</td>
+<td>第3个门输入 B</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Y4</td>
+<td>第4个门输出 Y</td>
+</tr>
+<tr>
+<td>12</td>
+<td>A4</td>
+<td>第4个门输入 A</td>
+</tr>
+<tr>
+<td>13</td>
+<td>B4</td>
+<td>第4个门输入 B</td>
+</tr>
+<tr>
+<td>14</td>
+<td>VCC</td>
+<td>电源正（+5V）</td>
+</tr>
+</tbody></table>
+<p>与门的特性是门输入都是1的时候才会输出1</p>
+<p>第二种是74AHC04 ，这是一款 <strong>六路反相器（Hex Inverter）</strong>，即它内部包含 <strong>6 个独立的 NOT 门（反相器）</strong>。每个门有一个输入和一个输出</p>
+<p>原理图如下：</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173111315.png" srcset="/img/loading.gif" lazyload alt="image-20250609173111315" style="zoom:50%;" />
+
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173122702.png" srcset="/img/loading.gif" lazyload alt="image-20250609173122702" style="zoom:50%;" />
+
+<p> 74AHC04 引脚定义（DIP-14 封装）</p>
+<table>
+<thead>
+<tr>
+<th>引脚号</th>
+<th>名称</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>A1</td>
+<td>第1个反相器输入</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Y1</td>
+<td>第1个反相器输出</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A2</td>
+<td>第2个反相器输入</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Y2</td>
+<td>第2个反相器输出</td>
+</tr>
+<tr>
+<td>5</td>
+<td>A3</td>
+<td>第3个反相器输入</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Y3</td>
+<td>第3个反相器输出</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GND</td>
+<td>地（0V）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Y4</td>
+<td>第4个反相器输出</td>
+</tr>
+<tr>
+<td>9</td>
+<td>A4</td>
+<td>第4个反相器输入</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Y5</td>
+<td>第5个反相器输出</td>
+</tr>
+<tr>
+<td>11</td>
+<td>A5</td>
+<td>第5个反相器输入</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Y6</td>
+<td>第6个反相器输出</td>
+</tr>
+<tr>
+<td>13</td>
+<td>A6</td>
+<td>第6个反相器输入</td>
+</tr>
+<tr>
+<td>14</td>
+<td>VCC</td>
+<td>电源（+5V）</td>
+</tr>
+</tbody></table>
+<p>非门的特性是输入为0的时候输出为1</p>
+<p>那我们可以推测得到位于与门输入的开关对应引脚都需置1，非门输入的开关对应引脚都需置0</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173238302.png" srcset="/img/loading.gif" lazyload alt="image-20250609173238302" style="zoom:50%;" />
+
+<p>一共有6个74AHC04芯片，位于这些芯片的非门输入端都需置0，如下图的SW25，29，31，32</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173311579.png" srcset="/img/loading.gif" lazyload alt="image-20250609173311579" style="zoom:50%;" />
+
+<p>同理 ，74LS08的芯片上面的输入都要置1，如下图的SW23，24</p>
+<img src="https://raw.githubusercontent.com/quietdawn/picture/main/image-20250609173341131.png" srcset="/img/loading.gif" lazyload alt="image-20250609173341131" style="zoom:50%;" />
+
+<p>那么统计一下需要置0的开关：</p>
+<p>1 4 </p>
+<p>9 </p>
+<p>12 14 15 </p>
+<p>16 17 20 </p>
+<p>21 22 25 </p>
+<p>29 </p>
+<p>31 32 33 </p>
+<p>36 37 40</p>
+<p>41 43</p>
+<p>所以整体的序列为011011110110100001100011011101000110011001011111</p>
+<p>包上flag{}提交即为答案</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>  一直觉得自己没啥进步总在踯躅不前，但是好像每次打比赛都有新的收获和新的肯定出现，仍在路上，仍在努力。</p>
+<p><strong>“我想再无风雪滂沱围困生命长河。且看枯木燃成烈火，用青山诠释我，生生不息的磅礴。”</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第一届OpenHarmony专题赛</div>
+      <div>http://example.com/2025/06/09/第一届OpenHarmony专题赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>p3cd0wn</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/08/XYCTF_Reverse%E5%87%BA%E9%A2%98%E5%B0%8F%E8%AE%B0/" title="XYCTF_Reverse出题小记">
+                        <span class="hidden-mobile">XYCTF_Reverse出题小记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"4gMWdFLhDv2bevUzdTcBg0tg-gzGzoHsz","appKey":"eZrG2IwhtuMGp4PM0HIyWHJz","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>Just Re For Fun!</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+<script src="/js/yinghua.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
